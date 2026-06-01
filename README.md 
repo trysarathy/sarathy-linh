@@ -1,0 +1,20 @@
+# Sarathy — Your Financial Companion
+
+An AI-powered financial companion for university students and NRIs in Singapore.
+
+Built by Aashmiin Kaur — SMU, 1st Year Bachelor of Accountancy
+SEI Programme 2026
+
+## Features
+- Sarathy AI Chat (powered by Claude)
+- Mood–Money Mirror
+- Pause Button
+- Emergency Fund Calculator
+- Debt Pulse
+- Goals Jar
+- NRI Navigator
+- Insurance Gap Check
+- SIP Investment Calculator
+
+## How to run
+Open index.html in a browser, or use Live Server in VS Code.

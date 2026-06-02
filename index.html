@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sarathy — Your Financial Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--or:#E87722;--orl:#FFF3E8;--orm:#FDDBB8;--dk:#1C1917;--tx:#44403C;--mu:#A8A29E;--bg:#F5F5F4;--cd:#FFFFFF;--br:rgba(0,0,0,0.08);--gn:#16A34A;--gnb:#F0FDF4;--rd:#DC2626;--rdb:#FEF2F2;--am:#D97706;--amb:#FFFBEB;--bl:#2563EB;--blb:#EFF6FF;--pu:#7C3AED;--pub:#F5F3FF;}
+body{font-family:'DM Sans',sans-serif;background:#E8E5E0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.phone{width:375px;height:790px;background:var(--bg);border-radius:44px;border:2px solid rgba(0,0,0,0.14);overflow:hidden;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.2),0 0 0 1px rgba(255,255,255,0.5) inset}
+.screen{display:none;flex-direction:column;height:100%}
+.screen.active{display:flex}
+.sb{background:var(--or);padding:12px 20px 8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sb .t{color:white;font-size:12px;font-weight:600}
+.sb .ic{color:white;font-size:14px;display:flex;gap:6px}
+.sc{flex:1;overflow-y:auto;scrollbar-width:none}
+.sc::-webkit-scrollbar{display:none}
+.nb{background:white;border-top:0.5px solid var(--br);display:flex;padding:8px 0 14px;flex-shrink:0}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;color:var(--mu);background:none;border:none;padding:4px 0;transition:color 0.2s;font-family:'DM Sans',sans-serif}
+.ni.on{color:var(--or)}
+.ni i{font-size:20px}
+.ni span{font-size:10px;font-weight:500}
+.sh{background:var(--or);padding:16px 20px 20px;flex-shrink:0}
+.sh h1{font-family:'DM Serif Display',serif;color:white;font-size:22px;font-weight:400;margin-bottom:2px}
+.sh p{color:rgba(255,255,255,0.8);font-size:13px}
+.card{background:var(--cd);border-radius:16px;border:0.5px solid var(--br);padding:16px;margin:0 16px 12px}
+.sl{padding:4px 20px 8px;font-size:13px;font-weight:600;color:var(--dk)}
+.gr{padding:16px 20px 4px}
+.gr .nm{font-family:'DM Serif Display',serif;font-size:24px;color:var(--dk);font-weight:400}
+.gr .sb2{font-size:13px;color:var(--mu);margin-top:2px}
+.ms{margin:8px 16px 12px;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.ms.org{background:var(--or)}
+.ms.wh{background:white;border:0.5px solid var(--br)}
+.mic{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.mic.lo{background:rgba(255,255,255,0.2);color:white}
+.mic.ti{background:var(--orl);color:var(--or)}
+.mt p.w{color:white;font-size:14px;font-weight:500;line-height:1.3}
+.mt p.d{color:var(--dk);font-size:14px;font-weight:500}
+.mt span.w{color:rgba(255,255,255,0.75);font-size:12px}
+.mt span.m{color:var(--mu);font-size:12px}
+.mt{flex:1}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px}
+.mc{background:white;border-radius:14px;border:0.5px solid var(--br);padding:14px}
+.mc .lb{font-size:11px;color:var(--mu);font-weight:500;text-transform:uppercase;letter-spacing:0.05em}
+.mc .am{font-size:22px;font-weight:600;color:var(--dk);margin:4px 0 2px}
+.mc .sb3{font-size:11px}
+.mc .sb3.gn{color:var(--gn)}
+.mc .sb3.rd{color:var(--rd)}
+.mc .sb3.mu{color:var(--mu)}
+.bb{height:4px;background:#F5F5F4;border-radius:2px;margin-top:8px;overflow:hidden}
+.bf{height:100%;border-radius:2px;background:var(--or)}
+.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 16px}
+.qb{display:flex;flex-direction:column;align-items:center;gap:6px;background:white;border:0.5px solid var(--br);border-radius:12px;padding:12px 6px;cursor:pointer;color:var(--dk);transition:transform 0.15s;font-family:'DM Sans',sans-serif}
+.qb:active{transform:scale(0.95)}
+.qb i{font-size:20px;color:var(--or)}
+.qb span{font-size:10px;font-weight:500;text-align:center;line-height:1.2}
+.mrc{background:var(--orl);border:1px solid var(--orm)}
+.mi{font-size:13px;color:var(--tx);line-height:1.6;margin-bottom:10px}
+.mi strong{color:var(--or)}
+.mt2{display:inline-flex;align-items:center;gap:4px;background:var(--or);color:white;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:500}
+.ml{font-size:11px;color:var(--or);font-weight:500;cursor:pointer}
+.po{position:absolute;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:flex-end;z-index:100}
+.pm{background:white;border-radius:24px 24px 0 0;width:100%;padding:24px 20px}
+.pm .pl{font-size:12px;font-weight:600;color:var(--or);text-transform:uppercase;letter-spacing:0.08em}
+.pm h2{font-family:'DM Serif Display',serif;font-size:20px;color:var(--dk);margin-top:4px;font-weight:400}
+.pm .pa{font-size:32px;font-weight:700;color:var(--or);margin:12px 0 2px}
+.pm .pi{font-size:15px;color:var(--tx)}
+.pm .ps{background:var(--orl);border-radius:12px;padding:12px;margin:16px 0}
+.pm .pf{font-size:11px;color:var(--or);font-weight:600;margin-bottom:4px}
+.pm .ps p{font-size:13px;color:var(--tx);line-height:1.5}
+.pb2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.by{background:var(--or);color:white;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
+.bn2{background:white;color:var(--tx);border:1px solid var(--br);border-radius:12px;padding:14px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
+.ch{display:flex;flex-direction:column;height:100%}
+.chh{background:var(--or);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.ca{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;color:white;font-size:16px}
+.ci p{color:white;font-size:15px;font-weight:500}
+.ci span{color:rgba(255,255,255,0.75);font-size:12px}
+.do{width:7px;height:7px;background:#4ADE80;border-radius:50%;display:inline-block;margin-right:4px}
+.cm{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none}
+.cm::-webkit-scrollbar{display:none}
+.msg{display:flex;gap:8px;max-width:85%}
+.msg.us{align-self:flex-end;flex-direction:row-reverse}
+.bu{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.55;color:var(--dk)}
+.msg.ag .bu{background:white;border:0.5px solid var(--br);border-bottom-left-radius:4px}
+.msg.us .bu{background:var(--or);color:white;border-bottom-right-radius:4px}
+.av{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--orl);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--or);font-weight:600;font-family:'DM Serif Display',serif;align-self:flex-end}
+.cs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cb{background:var(--orl);color:var(--or);border:1px solid var(--orm);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.cb:hover{background:var(--or);color:white}
+.cb:disabled{opacity:0.5;cursor:default}
+.ty{display:flex;gap:4px;align-items:center;padding:10px 14px;background:white;border:0.5px solid var(--br);border-radius:18px;border-bottom-left-radius:4px;width:fit-content}
+.td{width:6px;height:6px;border-radius:50%;background:var(--mu);animation:bn 1.2s infinite}
+.td:nth-child(2){animation-delay:0.2s}
+.td:nth-child(3){animation-delay:0.4s}
+@keyframes bn{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+.cib{padding:12px 16px;background:white;border-top:0.5px solid var(--br);display:flex;gap:10px;align-items:flex-end;flex-shrink:0}
+.ci2{flex:1;background:var(--bg);border:0.5px solid var(--br);border-radius:20px;padding:10px 16px;font-size:14px;font-family:'DM Sans',sans-serif;resize:none;max-height:80px;line-height:1.4;color:var(--dk);outline:none}
+.sb4{width:38px;height:38px;border-radius:50%;background:var(--or);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity 0.15s}
+.sb4 i{color:white;font-size:16px}
+.sb4:disabled{opacity:0.4}
+.gc{background:white;border-radius:16px;border:0.5px solid var(--br);padding:16px;margin:0 16px 12px}
+.gt{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.gn2{font-size:15px;font-weight:600;color:var(--dk)}
+.gct{font-size:11px;color:var(--mu);margin-top:2px}
+.gp{font-size:18px;font-weight:600;color:var(--or);font-family:'DM Serif Display',serif}
+.gam{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-bottom:6px}
+.gam strong{color:var(--dk)}
+.gb{height:8px;background:var(--orl);border-radius:4px;overflow:hidden;margin-bottom:12px}
+.gbf{height:100%;background:var(--or);border-radius:4px}
+.ga{width:100%;background:var(--orl);color:var(--or);border:1px dashed var(--orm);border-radius:10px;padding:9px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
+.ngb{margin:0 16px 16px;background:var(--or);color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:calc(100% - 32px);display:flex;align-items:center;justify-content:center;gap:8px}
+.in-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid #BFDBFE}
+.in-row:last-child{border-bottom:none}
+.in-label{font-size:13px;color:var(--dk)}
+.in-badge{border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600}
+.in-badge.ok{background:var(--gnb);color:var(--gn)}
+.in-badge.no{background:var(--rdb);color:var(--rd)}
+.in-badge.na{background:#F5F5F4;color:var(--mu)}
+.ns{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px}
+.nc{background:white;border-radius:12px;border:0.5px solid var(--br);padding:12px}
+.nc .vl{font-size:20px;font-weight:600;color:var(--dk);font-family:'DM Serif Display',serif}
+.nc .lb2{font-size:11px;color:var(--mu);margin-top:2px}
+.nc .sv{font-size:11px;color:var(--gn);font-weight:500}
+.ns2{display:flex;gap:14px;padding:14px 16px;border-bottom:0.5px solid var(--br)}
+.ns2:last-child{border-bottom:none}
+.sn{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.sn.dn{background:var(--gnb);color:var(--gn)}
+.sn.ac{background:var(--or);color:white}
+.sn.td2{background:#F5F5F4;color:var(--mu)}
+.st{font-size:14px;font-weight:500;color:var(--dk);margin-bottom:2px}
+.sd{font-size:12px;color:var(--mu);line-height:1.5}
+.sc2{display:inline-flex;align-items:center;gap:4px;color:var(--or);font-size:12px;font-weight:500;margin-top:6px;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0}
+.share-card{background:var(--or);border-radius:16px;padding:18px;margin:0 16px 12px;position:relative;overflow:hidden}
+.share-card h3{font-family:'DM Serif Display',serif;color:white;font-size:17px;font-weight:400;margin-bottom:4px}
+.share-card p{color:rgba(255,255,255,0.8);font-size:12px;line-height:1.5;margin-bottom:12px}
+.share-btn{background:white;color:var(--or);border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px}
+.sip-card{background:var(--or);border-radius:14px;padding:16px;margin:0 16px 12px}
+.sip-card h3{font-family:'DM Serif Display',serif;color:white;font-size:17px;font-weight:400;margin-bottom:6px}
+.sip-card p{color:rgba(255,255,255,0.85);font-size:12px;line-height:1.6;margin-bottom:12px}
+.sip-calc{background:rgba(255,255,255,0.15);border-radius:10px;padding:12px}
+.sip-calc label{color:rgba(255,255,255,0.8);font-size:12px}
+.sip-calc input[type=range]{width:100%;accent-color:white;margin:4px 0 8px;display:block}
+.sip-result{text-align:center;margin-top:10px}
+.sip-result .big{font-family:'DM Serif Display',serif;font-size:28px;color:white}
+.sip-result .lbl{font-size:11px;color:rgba(255,255,255,0.75)}
+.cmp-row{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-bottom:0.5px solid var(--br)}
+.cmp-row:last-child{border-bottom:none}
+.cmp-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.cmp-nm{font-size:13px;font-weight:600;color:var(--dk)}
+.cmp-tx{font-size:11px;color:var(--mu);line-height:1.4;margin-top:2px}
+.cmp-pct{font-size:14px;font-weight:600;color:var(--gn)}
+.cmp-lb{font-size:10px;color:var(--mu)}
+.ab{margin:0 16px 12px;background:var(--amb);border:1px solid #FDE68A;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:flex-start}
+.ab i{color:var(--am);font-size:18px;flex-shrink:0;margin-top:1px}
+.ab p{font-size:13px;color:var(--tx);line-height:1.5}
+.ab strong{color:var(--am)}
+.bc{display:flex;gap:4px;height:120px;align-items:flex-end;padding:0 16px 4px}
+.bco{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bcf{width:100%;background:var(--orm);border-radius:4px 4px 0 0}
+.bcf.td3{background:var(--or)}
+.bcl{font-size:10px;color:var(--mu)}
+.spc{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:0.5px solid var(--br)}
+.spc:last-child{border-bottom:none}
+.sci{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.scn{font-size:14px;font-weight:500;color:var(--dk)}
+.sct{font-size:11px;color:var(--mu)}
+.sca{font-size:15px;font-weight:600;color:var(--dk);margin-left:auto}
+</style>
+</head>
+<body>
+<div class="phone">
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
+  <div class="sc">
+    <div class="gr"><p class="nm">Good morning, Aashmiin ✦</p><p class="sb2">Thursday · May 28 · SGD $1,247 available</p></div>
+    <div class="ms org" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')">
+      <div class="mic lo"><i class="ti ti-message-circle"></i></div>
+      <div class="mt"><p class="w">How are you feeling about money today?</p><span class="w">Sarathy is here — tap to check in</span></div>
+      <i class="ti ti-chevron-right" style="color:rgba(255,255,255,0.7);font-size:18px;"></i>
+    </div>
+    <div class="mg">
+      <div class="mc"><div class="lb">This Month In</div><div class="am">$2,400</div><div class="sb3 gn">↑ Allowance received</div></div>
+      <div class="mc"><div class="lb">Spent So Far</div><div class="am">$1,153</div><div class="sb3 rd">↑ $180 vs last month</div><div class="bb"><div class="bf" style="width:48%"></div></div></div>
+      <div class="mc"><div class="lb">Remaining</div><div class="am">$1,247</div><div class="sb3 gn">On track ✓</div></div>
+      <div class="mc"><div class="lb">Goals Saved</div><div class="am">$1,785</div><div class="sb3 mu">across 2 goals</div></div>
+    </div>
+    <div class="ms wh" onclick="showPause()">
+      <div class="mic ti"><i class="ti ti-hand-stop"></i></div>
+      <div class="mt"><p class="d">Pause Button active</p><span class="m">Sarathy checks in before purchases over $50</span></div>
+      <i class="ti ti-chevron-right" style="color:var(--mu);font-size:18px;"></i>
+    </div>
+    <div class="sl" style="margin-top:10px;">Mood–Money Mirror</div>
+    <div class="card mrc">
+      <p class="mi">You spent <strong>$312 more on food delivery</strong> in weeks when you checked in feeling stressed. Last month that was 3 weeks in a row.</p>
+      <div style="display:flex;gap:10px;align-items:center;"><div class="mt2"><i class="ti ti-sparkles" style="font-size:12px;"></i> Sarathy noticed</div><span class="ml" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')">Talk about it →</span></div>
+    </div>
+    <div class="sl">Sarathy alerts</div>
+    <div style="padding:0 16px 4px;display:flex;flex-direction:column;gap:8px;">
+      <div style="background:var(--rdb);border:1px solid #FECDD3;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center;cursor:pointer;" onclick="go('goals')">
+        <i class="ti ti-shield-exclamation" style="color:var(--rd);font-size:18px;flex-shrink:0;"></i>
+        <p style="font-size:13px;color:var(--tx);flex:1;">Emergency fund covers <strong style="color:var(--rd);">1.8 months</strong> — target is 6.</p>
+        <i class="ti ti-chevron-right" style="color:var(--mu);font-size:16px;"></i>
+      </div>
+      <div style="background:var(--blb);border:1px solid #BFDBFE;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center;cursor:pointer;" onclick="go('nri')">
+        <i class="ti ti-heart-rate-monitor" style="color:var(--bl);font-size:18px;flex-shrink:0;"></i>
+        <p style="font-size:13px;color:var(--tx);flex:1;">You may be <strong style="color:var(--bl);">underinsured</strong> in Singapore.</p>
+        <i class="ti ti-chevron-right" style="color:var(--mu);font-size:16px;"></i>
+      </div>
+    </div>
+    <div class="sl" style="margin-top:10px;">Quick actions</div>
+    <div class="qa">
+      <button class="qb" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
+      <button class="qb" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
+      <button class="qb" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI Guide</span></button>
+      <button class="qb" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Ask Sarathy</span></button>
+    </div>
+  </div>
+  <nav class="nb">
+    <button class="ni on" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
+    <button class="ni" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
+    <button class="ni" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
+    <button class="ni" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
+    <button class="ni" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
+  </nav>
+  <div class="po" id="pause-overlay">
+    <div class="pm">
+      <p class="pl">Pause Button</p><h2>Before you buy this—</h2>
+      <div class="pa">SGD $89.90</div><div class="pi">ASOS — Summer dress haul</div>
+      <div class="ps"><p class="pf">Sarathy says</p><p>You checked in feeling stressed this morning. I've noticed you spend about $180 more on shopping in tough weeks. Still want to go ahead? That's completely okay — I just wanted you to know.</p></div>
+      <div class="pb2"><button class="by" onclick="hidePause()">Yes, buy it</button><button class="bn2" onclick="hidePause()">Actually, no</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div class="screen" id="screen-chat">
+  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
+  <div class="chh"><div class="ca">S</div><div class="ci"><p>Sarathy</p><span><span class="do"></span>Always here for you</span></div></div>
+  <div class="cm" id="chat-messages">
+    <div class="msg ag">
+      <div class="av">S</div>
+      <div>
+        <div class="bu">Hey — I'm Sarathy. Think of me as your financial companion. Not a bank. Not an advisor. Just someone who genuinely gets it and is always on your side.<br><br>When you think about money right now — what's the first feeling that comes up?</div>
+        <div class="cs">
+          <button class="cb" onclick="pick(this,'Stressed or overwhelmed')">Stressed or overwhelmed</button>
+          <button class="cb" onclick="pick(this,'Confused — I don\'t know where I stand')">Confused — don't know where I stand</button>
+          <button class="cb" onclick="pick(this,'Okay but could be doing better')">Okay but could be better</button>
+          <button class="cb" onclick="pick(this,'Actually pretty good')">Actually pretty good</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cib">
+    <textarea class="ci2" id="chat-input" placeholder="Message Sarathy..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send();}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
+    <button class="sb4" id="send-btn" onclick="send()"><i class="ti ti-send"></i></button>
+  </div>
+  <nav class="nb">
+    <button class="ni" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
+    <button class="ni on" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
+    <button class="ni" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
+    <button class="ni" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
+    <button class="ni" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
+  </nav>
+</div>
+
+<!-- GOALS -->
+<div class="screen" id="screen-goals">
+  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
+  <div class="sh"><h1>Goals & Safety Net</h1><p>Dreams, emergencies, and debt — all in one place</p></div>
+  <div class="sc">
+    <div class="sl">Emergency Fund</div>
+    <div style="background:linear-gradient(135deg,var(--gnb) 0%,#DCFCE7 100%);border:1px solid #BBF7D0;border-radius:16px;padding:16px;margin:0 16px 12px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <p style="font-size:12px;color:#15803D;font-weight:500;">Your safety net</p>
+          <p style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--gn);margin:4px 0;">SGD $3,240</p>
+          <p style="font-size:11px;color:#15803D;"><span id="ef-months">2.2</span> months covered · target: 6 months</p>
+        </div>
+        <div style="background:var(--gnb);border:1px solid #BBF7D0;border-radius:10px;padding:8px 12px;text-align:center;">
+          <p style="font-size:18px;font-weight:700;color:var(--gn);">37%</p>
+          <p style="font-size:10px;color:#15803D;">of goal</p>
+        </div>
+      </div>
+      <div style="height:6px;background:#BBF7D0;border-radius:3px;margin:12px 0 6px;overflow:hidden;"><div style="height:100%;width:37%;background:var(--gn);border-radius:3px;"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#15803D;margin-bottom:10px;"><span>Current: $3,240</span><span>Target: SGD $<span id="ef-need">8,700</span></span></div>
+      <div style="background:rgba(255,255,255,0.6);border-radius:10px;padding:10px;">
+        <p style="font-size:12px;color:#15803D;font-weight:500;margin-bottom:4px;">Your monthly expenses: SGD $<span id="ef-exp">1,450</span></p>
+        <input type="range" style="width:100%;accent-color:var(--gn);display:block;margin:6px 0;" id="ef-slider" min="500" max="3000" value="1450" step="50" oninput="updateEF(this.value)">
+        <p style="font-size:11px;color:#15803D;">Drag to adjust → need 6x = SGD $<span id="ef-need2">8,700</span></p>
+      </div>
+      <button onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')" style="margin-top:12px;background:var(--gn);color:white;border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;"><i class="ti ti-plus"></i> Add to emergency fund</button>
+    </div>
+    <div class="sl">Debt Pulse</div>
+    <div style="background:linear-gradient(135deg,var(--rdb) 0%,#FFE4E6 100%);border:1px solid #FECDD3;border-radius:16px;padding:16px;margin:0 16px 12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <p style="font-size:13px;font-weight:600;color:var(--dk);">Your current debt</p>
+        <div style="background:var(--rd);color:white;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;">SGD $4,200 total</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid #FECDD3;font-size:13px;"><span style="color:var(--dk);">Student credit card</span><span style="color:var(--rd);font-weight:600;">$1,800</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid #FECDD3;font-size:13px;"><span style="color:var(--dk);">Phone installment plan</span><span style="color:var(--rd);font-weight:600;">$1,200</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;"><span style="color:var(--dk);">Study loan (interest-free)</span><span style="color:var(--rd);font-weight:600;">$1,200</span></div>
+      <p style="font-size:12px;color:#9F1239;margin-top:10px;line-height:1.5;">Sarathy's tip: Pay the credit card first — it's the only one charging you interest. Even $50 extra per month saves you $180 this year.</p>
+      <button onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')" style="margin-top:10px;background:white;color:var(--rd);border:1px solid #FECDD3;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;"><i class="ti ti-message-circle"></i> Talk to Sarathy about debt</button>
+    </div>
+    <div class="sl">Your Goals</div>
+    <div class="gc">
+      <div class="gt"><div><div class="gn2">✈️ Dream Goa Trip</div><div class="gct">Travel & Adventure</div></div><div class="gp">64%</div></div>
+      <div class="gam"><span>SGD <strong>$1,280</strong> saved</span><span>of SGD $2,000</span></div>
+      <div class="gb"><div class="gbf" style="width:64%"></div></div>
+      <button class="ga"><i class="ti ti-plus"></i> Add SGD $50</button>
+    </div>
+    <div class="gc">
+      <div class="gt"><div><div class="gn2">💻 New MacBook</div><div class="gct">Gadgets & Tech</div></div><div class="gp">25%</div></div>
+      <div class="gam"><span>SGD <strong>$505</strong> saved</span><span>of SGD $2,000</span></div>
+      <div class="gb"><div class="gbf" style="width:25%"></div></div>
+      <button class="ga"><i class="ti ti-plus"></i> Add SGD $50</button>
+    </div>
+    <button class="ngb"><i class="ti ti-plus"></i> Create new goal</button>
+  </div>
+  <nav class="nb">
+    <button class="ni" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
+    <button class="ni" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
+    <button class="ni on" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
+    <button class="ni" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
+    <button class="ni" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
+  </nav>
+</div>
+
+<!-- NRI -->
+<div class="screen" id="screen-nri">
+  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
+  <div class="sh"><h1>NRI Navigator</h1><p>Singapore's financial system, made simple for you</p></div>
+  <div class="sc">
+    <div class="ns">
+      <div class="nc"><div class="vl">0%</div><div class="lb2">Capital Gains Tax</div><div class="sv">Unique to Singapore ✓</div></div>
+      <div class="nc"><div class="vl">$8.05B</div><div class="lb2">NRI remittances/yr</div><div class="sv">Optimise yours →</div></div>
+    </div>
+    <div class="sl">Insurance Gap Check</div>
+    <div style="background:linear-gradient(135deg,var(--blb) 0%,#DBEAFE 100%);border:1px solid #BFDBFE;border-radius:16px;padding:16px;margin:0 16px 12px;">
+      <p style="font-size:13px;color:#1D4ED8;font-weight:500;margin-bottom:10px;">72% of students & NRIs in Singapore are underinsured. Are you?</p>
+      <div class="in-row"><span class="in-label">Health insurance (Singapore)</span><span class="in-badge no">Not confirmed</span></div>
+      <div class="in-row"><span class="in-label">MediShield Life</span><span class="in-badge na">EP holders: N/A</span></div>
+      <div class="in-row"><span class="in-label">Life insurance</span><span class="in-badge no">Not set up</span></div>
+      <div class="in-row"><span class="in-label">Home/contents insurance</span><span class="in-badge ok">Active</span></div>
+      <button onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')" style="margin-top:12px;background:var(--bl);color:white;border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;"><i class="ti ti-message-circle"></i> Ask Sarathy about insurance options</button>
+    </div>
+    <div class="sl">Setup checklist</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="ns2"><div class="sn dn"><i class="ti ti-check" style="font-size:13px;"></i></div><div><div class="st">Open a local bank account</div><div class="sd">DBS, OCBC, or UOB — done in 15 mins with your passport and student pass.</div></div></div>
+      <div class="ns2"><div class="sn dn"><i class="ti ti-check" style="font-size:13px;"></i></div><div><div class="st">Set up PayNow</div><div class="sd">Link your NRIC or phone for instant free transfers.</div></div></div>
+      <div class="ns2"><div class="sn ac">3</div><div><div class="st">Open NRE account back home</div><div class="sd">Send Singapore → India tax-free. Sarathy walks you through it.</div><button class="sc2" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle" style="font-size:13px;"></i> Ask Sarathy how</button></div></div>
+      <div class="ns2"><div class="sn td2">4</div><div><div class="st">Understand 0% capital gains</div><div class="sd">Singapore doesn't tax investment profits. Here's how to use this legally.</div><button class="sc2" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle" style="font-size:13px;"></i> Learn with Sarathy</button></div></div>
+      <div class="ns2"><div class="sn td2">5</div><div><div class="st">Optimise your remittances</div><div class="sd">Wise and Instarem save most NRIs $80–$200/month vs bank transfers.</div><button class="sc2" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle" style="font-size:13px;"></i> Compare rates</button></div></div>
+    </div>
+    <div class="sl" style="margin-top:4px;">Share Sarathy</div>
+    <div class="share-card">
+      <h3>Know someone who just arrived?</h3>
+      <p>Send them this. Sarathy helped you figure out Singapore's financial system — now pass it on to a friend figuring it out alone.</p>
+      <button class="share-btn"><i class="ti ti-share"></i> Share my Sarathy referral</button>
+    </div>
+    <div style="height:16px;"></div>
+  </div>
+  <nav class="nb">
+    <button class="ni" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
+    <button class="ni" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
+    <button class="ni" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
+    <button class="ni on" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
+    <button class="ni" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
+  </nav>
+</div>
+
+<!-- INVEST -->
+<div class="screen" id="screen-invest">
+  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
+  <div class="sh"><h1>Start Investing</h1><p>Simple first steps — no jargon, no overwhelm</p></div>
+  <div class="sc">
+    <div class="sl">SIP Calculator</div>
+    <div class="sip-card">
+      <h3>What does starting a SIP actually mean?</h3>
+      <p>A SIP means investing a small fixed amount every month — like a savings habit, but your money grows in the market. Most experts recommend this as the single best starting point for Gen Z.</p>
+      <div class="sip-calc">
+        <label>Monthly amount: SGD $<span id="sip-amt">100</span></label>
+        <input type="range" id="sip-slider" min="50" max="500" value="100" step="50" oninput="updateSIP()">
+        <label>Years investing: <span id="sip-yrs">10</span></label>
+        <input type="range" id="sip-yrs-slider" min="3" max="30" value="10" step="1" oninput="updateSIP()">
+        <div class="sip-result">
+          <div class="lbl">Your money grows to approximately</div>
+          <div class="big" id="sip-result">SGD $17,384</div>
+          <div class="lbl" style="margin-top:4px;">at 8% annual returns — index fund historical average</div>
+        </div>
+      </div>
+    </div>
+    <div class="sl">Where to start (Sarathy recommends)</div>
+    <div class="card" style="padding:4px 0;overflow:hidden;">
+      <div class="cmp-row">
+        <div class="cmp-ic" style="background:#EFF6FF;"><i class="ti ti-building-bank" style="color:#2563EB;"></i></div>
+        <div style="flex:1;"><div class="cmp-nm">Index Funds (Nifty 50 / S&P 500)</div><div class="cmp-tx">Low cost, diversified. Recommended by experts for Gen Z beginners. Only 7% of Gen Z owns them — most who should.</div></div>
+        <div style="text-align:right;flex-shrink:0;"><div class="cmp-pct">~12%</div><div class="cmp-lb">avg/yr</div></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-ic" style="background:#F0FDF4;"><i class="ti ti-chart-line" style="color:#16A34A;"></i></div>
+        <div style="flex:1;"><div class="cmp-nm">Balanced Advantage Fund SIP</div><div class="cmp-tx">Auto-balances stocks and bonds. Lower stress, consistent returns. Great for emotionally reactive investors.</div></div>
+        <div style="text-align:right;flex-shrink:0;"><div class="cmp-pct">~10%</div><div class="cmp-lb">avg/yr</div></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-ic" style="background:#FFFBEB;"><i class="ti ti-coins" style="color:#D97706;"></i></div>
+        <div style="flex:1;"><div class="cmp-nm">Sovereign Gold Bond (SGB)</div><div class="cmp-tx">Digital gold that also pays 2.5% interest. Gen Z's smarter approach to gold — not jewellery, but a real investment.</div></div>
+        <div style="text-align:right;flex-shrink:0;"><div class="cmp-pct">~8%</div><div class="cmp-lb">avg/yr</div></div>
+      </div>
+    </div>
+    <div class="sl">What Gen Z in India actually owns</div>
+    <div class="card">
+      <p style="font-size:11px;color:var(--mu);margin-bottom:10px;">InvestOnline / Motley Fool Gen Z Study 2025</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">Stocks</span><span style="font-size:12px;font-weight:600;color:var(--or);">46%</span></div><div class="bb"><div class="bf" style="width:46%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">Cryptocurrency</span><span style="font-size:12px;font-weight:600;color:var(--or);">26%</span></div><div class="bb"><div class="bf" style="width:26%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">Mutual Funds</span><span style="font-size:12px;font-weight:600;color:var(--or);">14%</span></div><div class="bb"><div class="bf" style="width:14%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">ETFs</span><span style="font-size:12px;font-weight:600;color:var(--or);">12%</span></div><div class="bb"><div class="bf" style="width:12%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">Index Funds</span><span style="font-size:12px;font-weight:600;color:var(--or);">7%</span></div><div class="bb"><div class="bf" style="width:7%"></div></div></div>
+      </div>
+      <p style="font-size:12px;color:var(--mu);margin-top:10px;line-height:1.5;">Only 7% own index funds — yet experts say it's the best starting point. Sarathy bridges this gap.</p>
+    </div>
+    <button onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')" style="margin:0 16px 20px;background:var(--or);color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:calc(100% - 32px);display:flex;align-items:center;justify-content:center;gap:8px;"><i class="ti ti-message-circle"></i> Ask Sarathy where to start</button>
+  </div>
+  <nav class="nb">
+    <button class="ni" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
+    <button class="ni" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
+    <button class="ni" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
+    <button class="ni" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
+    <button class="ni on" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
+  </nav>
+</div>
+
+</div>
+
+<script>
+function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+n).classList.add('active');}
+function showPause(){document.getElementById('pause-overlay').style.display='flex';}
+function hidePause(){document.getElementById('pause-overlay').style.display='none';}
+
+function updateEF(v){
+  const exp=parseInt(v);
+  const need=exp*6;
+  const months=(3240/exp).toFixed(1);
+  document.getElementById('ef-exp').textContent=exp.toLocaleString();
+  document.getElementById('ef-need').textContent=need.toLocaleString();
+  document.getElementById('ef-need2') && (document.getElementById('ef-need2').textContent=need.toLocaleString());
+  document.getElementById('ef-months').textContent=months;
+}
+
+function updateSIP(){
+  const amt=parseInt(document.getElementById('sip-slider').value);
+  const yrs=parseInt(document.getElementById('sip-yrs-slider').value);
+  const r=0.08/12,n=yrs*12;
+  const fv=amt*(((Math.pow(1+r,n)-1)/r)*(1+r));
+  document.getElementById('sip-amt').textContent=amt;
+  document.getElementById('sip-yrs').textContent=yrs;
+  document.getElementById('sip-result').textContent='SGD $'+Math.round(fv).toLocaleString();
+}
+
+const SYS=`You are Sarathy, a warm and personal financial companion for university students and NRIs in Singapore. You are not a bank or advisor — you are the brilliant friend who understands money and is always unconditionally on the user's side.
+
+Speak: warm, direct, casual. Short sentences. No jargon without explanation. ONE question at a time. Always acknowledge feelings before money. Max 3-4 sentences unless asked something detailed.
+
+Key data you know: 93% of Gen Z save consistently but 69% lack emergency funds; 72% are underinsured; only 7% own index funds despite experts recommending them; 29% carry multiple debts; 85% face rising cost-of-living challenges.
+
+Never: judge past decisions, say I am an AI, give more than one next step at a time.
+
+Goal: make the user feel genuinely understood, then help them take ONE clear next step.`;
+
+let hist=[],busy=false;
+
+function addMsg(txt,role){
+  const msgs=document.getElementById('chat-messages');
+  const w=document.createElement('div');w.className='msg '+role;
+  w.innerHTML=role==='ag'?`<div class="av">S</div><div><div class="bu">${txt.replace(/\n/g,'<br>')}</div></div>`:`<div class="bu">${txt}</div>`;
+  msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;
+}
+function showTyping(){const m=document.getElementById('chat-messages');const t=document.createElement('div');t.className='msg ag';t.id='typing';t.innerHTML='<div class="av">S</div><div class="ty"><div class="td"></div><div class="td"></div><div class="td"></div></div>';m.appendChild(t);m.scrollTop=m.scrollHeight;}
+function hideTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+async function pick(btn,txt){btn.closest('.cs').querySelectorAll('.cb').forEach(b=>b.disabled=true);addMsg(txt,'us');hist.push({role:'user',content:txt});await ask();}
+async function send(){const inp=document.getElementById('chat-input');const txt=inp.value.trim();if(!txt||busy)return;inp.value='';inp.style.height='auto';addMsg(txt,'us');hist.push({role:'user',content:txt});await ask();}
+async function ask(){
+  if(busy)return;busy=true;document.getElementById('send-btn').disabled=true;showTyping();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:350,system:SYS,messages:hist})});
+    const d=await res.json();const reply=d.content?.[0]?.text||"I'm right here with you.";
+    hist.push({role:'assistant',content:reply});hideTyping();addMsg(reply,'ag');
+  }catch(e){hideTyping();addMsg("I'm here. (Quick connection hiccup — but I'm not going anywhere.)",'ag');}
+  busy=false;document.getElementById('send-btn').disabled=false;
+}
+</script>
+</body>
+</html>

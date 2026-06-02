@@ -3,497 +3,1109 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Sarathy — Your Financial Companion</title>
+<title>Sarathy — Chào Linh 🌸</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--or:#E87722;--orl:#FFF3E8;--orm:#FDDBB8;--dk:#1C1917;--tx:#44403C;--mu:#A8A29E;--bg:#F5F5F4;--cd:#FFFFFF;--br:rgba(0,0,0,0.08);--gn:#16A34A;--gnb:#F0FDF4;--rd:#DC2626;--rdb:#FEF2F2;--am:#D97706;--amb:#FFFBEB;--bl:#2563EB;--blb:#EFF6FF;--pu:#7C3AED;--pub:#F5F3FF;}
-body{font-family:'DM Sans',sans-serif;background:#E8E5E0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
-.phone{width:375px;height:790px;background:var(--bg);border-radius:44px;border:2px solid rgba(0,0,0,0.14);overflow:hidden;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.2),0 0 0 1px rgba(255,255,255,0.5) inset}
-.screen{display:none;flex-direction:column;height:100%}
+
+:root{
+  /* Vietnamese-inspired palette: jade, lotus, gold, warm cream */
+  --jade:       #1A5C45;
+  --jade-mid:   #237355;
+  --jade-light: #2E9068;
+  --jade-glow:  rgba(26,92,69,0.15);
+  --lotus:      #E8637A;
+  --lotus-soft: #FFF0F2;
+  --lotus-mid:  #F9C5CE;
+  --gold:       #C9963A;
+  --gold-soft:  #FBF3E4;
+  --gold-mid:   #EDD49A;
+  --cream:      #FDFAF5;
+  --cream2:     #F6EFE3;
+  --cream3:     #EDE3D0;
+  --ink:        #1C1410;
+  --ink2:       #4A3828;
+  --ink3:       #8C7560;
+  --line:       rgba(74,56,40,0.1);
+  --white:      #FFFFFF;
+  --gn:         #2D7A4F;
+  --gnb:        #EDF7F2;
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background: radial-gradient(ellipse at top, #0D2B20 0%, #060F0A 100%);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.phone{
+  width:375px;
+  height:812px;
+  background:var(--cream);
+  border-radius:44px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 50px 100px rgba(0,0,0,0.6),
+    0 0 60px rgba(26,92,69,0.2),
+    0 0 120px rgba(201,150,58,0.08);
+}
+
+/* Lotus watermark — subtle background decoration */
+.phone::before{
+  content:'🌸';
+  position:absolute;
+  font-size:200px;
+  opacity:0.025;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.screen{
+  display:none;
+  flex-direction:column;
+  height:100%;
+  position:absolute;
+  inset:0;
+  background:var(--cream);
+  z-index:1;
+}
 .screen.active{display:flex}
-.sb{background:var(--or);padding:12px 20px 8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.sb .t{color:white;font-size:12px;font-weight:600}
-.sb .ic{color:white;font-size:14px;display:flex;gap:6px}
-.sc{flex:1;overflow-y:auto;scrollbar-width:none}
-.sc::-webkit-scrollbar{display:none}
-.nb{background:white;border-top:0.5px solid var(--br);display:flex;padding:8px 0 14px;flex-shrink:0}
-.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;color:var(--mu);background:none;border:none;padding:4px 0;transition:color 0.2s;font-family:'DM Sans',sans-serif}
-.ni.on{color:var(--or)}
-.ni i{font-size:20px}
-.ni span{font-size:10px;font-weight:500}
-.sh{background:var(--or);padding:16px 20px 20px;flex-shrink:0}
-.sh h1{font-family:'DM Serif Display',serif;color:white;font-size:22px;font-weight:400;margin-bottom:2px}
-.sh p{color:rgba(255,255,255,0.8);font-size:13px}
-.card{background:var(--cd);border-radius:16px;border:0.5px solid var(--br);padding:16px;margin:0 16px 12px}
-.sl{padding:4px 20px 8px;font-size:13px;font-weight:600;color:var(--dk)}
-.gr{padding:16px 20px 4px}
-.gr .nm{font-family:'DM Serif Display',serif;font-size:24px;color:var(--dk);font-weight:400}
-.gr .sb2{font-size:13px;color:var(--mu);margin-top:2px}
-.ms{margin:8px 16px 12px;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer}
-.ms.org{background:var(--or)}
-.ms.wh{background:white;border:0.5px solid var(--br)}
-.mic{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.mic.lo{background:rgba(255,255,255,0.2);color:white}
-.mic.ti{background:var(--orl);color:var(--or)}
-.mt p.w{color:white;font-size:14px;font-weight:500;line-height:1.3}
-.mt p.d{color:var(--dk);font-size:14px;font-weight:500}
-.mt span.w{color:rgba(255,255,255,0.75);font-size:12px}
-.mt span.m{color:var(--mu);font-size:12px}
-.mt{flex:1}
-.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px}
-.mc{background:white;border-radius:14px;border:0.5px solid var(--br);padding:14px}
-.mc .lb{font-size:11px;color:var(--mu);font-weight:500;text-transform:uppercase;letter-spacing:0.05em}
-.mc .am{font-size:22px;font-weight:600;color:var(--dk);margin:4px 0 2px}
-.mc .sb3{font-size:11px}
-.mc .sb3.gn{color:var(--gn)}
-.mc .sb3.rd{color:var(--rd)}
-.mc .sb3.mu{color:var(--mu)}
-.bb{height:4px;background:#F5F5F4;border-radius:2px;margin-top:8px;overflow:hidden}
-.bf{height:100%;border-radius:2px;background:var(--or)}
-.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 16px}
-.qb{display:flex;flex-direction:column;align-items:center;gap:6px;background:white;border:0.5px solid var(--br);border-radius:12px;padding:12px 6px;cursor:pointer;color:var(--dk);transition:transform 0.15s;font-family:'DM Sans',sans-serif}
-.qb:active{transform:scale(0.95)}
-.qb i{font-size:20px;color:var(--or)}
-.qb span{font-size:10px;font-weight:500;text-align:center;line-height:1.2}
-.mrc{background:var(--orl);border:1px solid var(--orm)}
-.mi{font-size:13px;color:var(--tx);line-height:1.6;margin-bottom:10px}
-.mi strong{color:var(--or)}
-.mt2{display:inline-flex;align-items:center;gap:4px;background:var(--or);color:white;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:500}
-.ml{font-size:11px;color:var(--or);font-weight:500;cursor:pointer}
-.po{position:absolute;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:flex-end;z-index:100}
-.pm{background:white;border-radius:24px 24px 0 0;width:100%;padding:24px 20px}
-.pm .pl{font-size:12px;font-weight:600;color:var(--or);text-transform:uppercase;letter-spacing:0.08em}
-.pm h2{font-family:'DM Serif Display',serif;font-size:20px;color:var(--dk);margin-top:4px;font-weight:400}
-.pm .pa{font-size:32px;font-weight:700;color:var(--or);margin:12px 0 2px}
-.pm .pi{font-size:15px;color:var(--tx)}
-.pm .ps{background:var(--orl);border-radius:12px;padding:12px;margin:16px 0}
-.pm .pf{font-size:11px;color:var(--or);font-weight:600;margin-bottom:4px}
-.pm .ps p{font-size:13px;color:var(--tx);line-height:1.5}
-.pb2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.by{background:var(--or);color:white;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
-.bn2{background:white;color:var(--tx);border:1px solid var(--br);border-radius:12px;padding:14px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
-.ch{display:flex;flex-direction:column;height:100%}
-.chh{background:var(--or);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
-.ca{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;color:white;font-size:16px}
-.ci p{color:white;font-size:15px;font-weight:500}
-.ci span{color:rgba(255,255,255,0.75);font-size:12px}
-.do{width:7px;height:7px;background:#4ADE80;border-radius:50%;display:inline-block;margin-right:4px}
-.cm{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none}
-.cm::-webkit-scrollbar{display:none}
-.msg{display:flex;gap:8px;max-width:85%}
-.msg.us{align-self:flex-end;flex-direction:row-reverse}
-.bu{padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.55;color:var(--dk)}
-.msg.ag .bu{background:white;border:0.5px solid var(--br);border-bottom-left-radius:4px}
-.msg.us .bu{background:var(--or);color:white;border-bottom-right-radius:4px}
-.av{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--orl);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--or);font-weight:600;font-family:'DM Serif Display',serif;align-self:flex-end}
-.cs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.cb{background:var(--orl);color:var(--or);border:1px solid var(--orm);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
-.cb:hover{background:var(--or);color:white}
-.cb:disabled{opacity:0.5;cursor:default}
-.ty{display:flex;gap:4px;align-items:center;padding:10px 14px;background:white;border:0.5px solid var(--br);border-radius:18px;border-bottom-left-radius:4px;width:fit-content}
-.td{width:6px;height:6px;border-radius:50%;background:var(--mu);animation:bn 1.2s infinite}
-.td:nth-child(2){animation-delay:0.2s}
-.td:nth-child(3){animation-delay:0.4s}
-@keyframes bn{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
-.cib{padding:12px 16px;background:white;border-top:0.5px solid var(--br);display:flex;gap:10px;align-items:flex-end;flex-shrink:0}
-.ci2{flex:1;background:var(--bg);border:0.5px solid var(--br);border-radius:20px;padding:10px 16px;font-size:14px;font-family:'DM Sans',sans-serif;resize:none;max-height:80px;line-height:1.4;color:var(--dk);outline:none}
-.sb4{width:38px;height:38px;border-radius:50%;background:var(--or);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity 0.15s}
-.sb4 i{color:white;font-size:16px}
-.sb4:disabled{opacity:0.4}
-.gc{background:white;border-radius:16px;border:0.5px solid var(--br);padding:16px;margin:0 16px 12px}
-.gt{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
-.gn2{font-size:15px;font-weight:600;color:var(--dk)}
-.gct{font-size:11px;color:var(--mu);margin-top:2px}
-.gp{font-size:18px;font-weight:600;color:var(--or);font-family:'DM Serif Display',serif}
-.gam{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-bottom:6px}
-.gam strong{color:var(--dk)}
-.gb{height:8px;background:var(--orl);border-radius:4px;overflow:hidden;margin-bottom:12px}
-.gbf{height:100%;background:var(--or);border-radius:4px}
-.ga{width:100%;background:var(--orl);color:var(--or);border:1px dashed var(--orm);border-radius:10px;padding:9px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
-.ngb{margin:0 16px 16px;background:var(--or);color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:calc(100% - 32px);display:flex;align-items:center;justify-content:center;gap:8px}
-.in-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid #BFDBFE}
-.in-row:last-child{border-bottom:none}
-.in-label{font-size:13px;color:var(--dk)}
-.in-badge{border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600}
-.in-badge.ok{background:var(--gnb);color:var(--gn)}
-.in-badge.no{background:var(--rdb);color:var(--rd)}
-.in-badge.na{background:#F5F5F4;color:var(--mu)}
-.ns{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px}
-.nc{background:white;border-radius:12px;border:0.5px solid var(--br);padding:12px}
-.nc .vl{font-size:20px;font-weight:600;color:var(--dk);font-family:'DM Serif Display',serif}
-.nc .lb2{font-size:11px;color:var(--mu);margin-top:2px}
-.nc .sv{font-size:11px;color:var(--gn);font-weight:500}
-.ns2{display:flex;gap:14px;padding:14px 16px;border-bottom:0.5px solid var(--br)}
-.ns2:last-child{border-bottom:none}
-.sn{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
-.sn.dn{background:var(--gnb);color:var(--gn)}
-.sn.ac{background:var(--or);color:white}
-.sn.td2{background:#F5F5F4;color:var(--mu)}
-.st{font-size:14px;font-weight:500;color:var(--dk);margin-bottom:2px}
-.sd{font-size:12px;color:var(--mu);line-height:1.5}
-.sc2{display:inline-flex;align-items:center;gap:4px;color:var(--or);font-size:12px;font-weight:500;margin-top:6px;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0}
-.share-card{background:var(--or);border-radius:16px;padding:18px;margin:0 16px 12px;position:relative;overflow:hidden}
-.share-card h3{font-family:'DM Serif Display',serif;color:white;font-size:17px;font-weight:400;margin-bottom:4px}
-.share-card p{color:rgba(255,255,255,0.8);font-size:12px;line-height:1.5;margin-bottom:12px}
-.share-btn{background:white;color:var(--or);border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px}
-.sip-card{background:var(--or);border-radius:14px;padding:16px;margin:0 16px 12px}
-.sip-card h3{font-family:'DM Serif Display',serif;color:white;font-size:17px;font-weight:400;margin-bottom:6px}
-.sip-card p{color:rgba(255,255,255,0.85);font-size:12px;line-height:1.6;margin-bottom:12px}
-.sip-calc{background:rgba(255,255,255,0.15);border-radius:10px;padding:12px}
-.sip-calc label{color:rgba(255,255,255,0.8);font-size:12px}
-.sip-calc input[type=range]{width:100%;accent-color:white;margin:4px 0 8px;display:block}
-.sip-result{text-align:center;margin-top:10px}
-.sip-result .big{font-family:'DM Serif Display',serif;font-size:28px;color:white}
-.sip-result .lbl{font-size:11px;color:rgba(255,255,255,0.75)}
-.cmp-row{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-bottom:0.5px solid var(--br)}
-.cmp-row:last-child{border-bottom:none}
-.cmp-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.cmp-nm{font-size:13px;font-weight:600;color:var(--dk)}
-.cmp-tx{font-size:11px;color:var(--mu);line-height:1.4;margin-top:2px}
-.cmp-pct{font-size:14px;font-weight:600;color:var(--gn)}
-.cmp-lb{font-size:10px;color:var(--mu)}
-.ab{margin:0 16px 12px;background:var(--amb);border:1px solid #FDE68A;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:flex-start}
-.ab i{color:var(--am);font-size:18px;flex-shrink:0;margin-top:1px}
-.ab p{font-size:13px;color:var(--tx);line-height:1.5}
-.ab strong{color:var(--am)}
-.bc{display:flex;gap:4px;height:120px;align-items:flex-end;padding:0 16px 4px}
-.bco{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
-.bcf{width:100%;background:var(--orm);border-radius:4px 4px 0 0}
-.bcf.td3{background:var(--or)}
-.bcl{font-size:10px;color:var(--mu)}
-.spc{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:0.5px solid var(--br)}
-.spc:last-child{border-bottom:none}
-.sci{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.scn{font-size:14px;font-weight:500;color:var(--dk)}
-.sct{font-size:11px;color:var(--mu)}
-.sca{font-size:15px;font-weight:600;color:var(--dk);margin-left:auto}
+
+/* STATUS BAR */
+.status{
+  background:var(--jade);
+  padding:14px 24px 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-shrink:0;
+}
+.st{color:rgba(255,255,255,0.9);font-size:13px;font-weight:600}
+.si{color:rgba(255,255,255,0.5);font-size:12px}
+
+/* SCROLL */
+.scroll{flex:1;overflow-y:auto;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+
+/* NAV */
+.nav{
+  background:var(--jade);
+  display:flex;
+  padding:10px 0 20px;
+  flex-shrink:0;
+}
+.nb{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,0.3);
+  font-family:'DM Sans',sans-serif;
+  transition:color 0.2s;padding:4px 0;
+}
+.nb.on{color:var(--gold)}
+.nb svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.nb span{font-size:10px;font-weight:500}
+
+/* ═══════════════════════════════
+   HOME SCREEN
+═══════════════════════════════ */
+.hero{
+  background: linear-gradient(160deg, var(--jade) 0%, #0F3D2C 60%, #0A2A1E 100%);
+  padding:24px 24px 26px;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+}
+/* Lotus decoration top right */
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-40px;right:-40px;
+  width:160px;height:160px;
+  background:radial-gradient(circle, rgba(201,150,58,0.2) 0%, transparent 65%);
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:-20px;left:-20px;
+  width:100px;height:100px;
+  background:radial-gradient(circle, rgba(232,99,122,0.15) 0%, transparent 65%);
+}
+.h-vn{
+  font-size:11px;
+  color:rgba(255,255,255,0.4);
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+.h-greet{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+  color:white;
+  font-weight:500;
+  line-height:1.25;
+  margin-bottom:4px;
+}
+.h-greet em{color:var(--gold);font-style:italic}
+.h-sub{
+  font-size:13px;
+  color:rgba(255,255,255,0.5);
+  margin-bottom:14px;
+  font-style:italic;
+}
+.h-msg{
+  font-size:14px;
+  color:rgba(255,255,255,0.75);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+.h-msg strong{color:white;font-weight:500}
+.h-msg .vn-word{
+  color:var(--gold);
+  font-style:italic;
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;
+}
+.h-btn{
+  background:var(--gold);
+  color:var(--ink);
+  border:none;
+  border-radius:14px;
+  padding:14px 20px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:opacity 0.15s;
+  letter-spacing:0.01em;
+}
+.h-btn:active{opacity:0.85}
+
+/* EMOTIONAL PULSE CARD */
+.emotional-card{
+  margin:14px 16px 12px;
+  background:linear-gradient(135deg, var(--jade) 0%, var(--jade-mid) 100%);
+  border-radius:20px;
+  padding:18px;
+  position:relative;
+  overflow:hidden;
+}
+.emotional-card::after{
+  content:'🌸';
+  position:absolute;
+  right:14px;top:10px;
+  font-size:40px;
+  opacity:0.2;
+}
+.ec-label{font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.ec-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;color:white;font-weight:400;
+  line-height:1.45;margin-bottom:10px;
+}
+.ec-text em{color:var(--gold);font-style:italic}
+.ec-steps{display:flex;gap:5px;margin-bottom:6px}
+.ec-step{flex:1;height:4px;border-radius:2px}
+.ec-step.done{background:var(--gold)}
+.ec-step.now{background:rgba(201,150,58,0.6)}
+.ec-step.todo{background:rgba(255,255,255,0.15)}
+.ec-legend{display:flex;justify-content:space-between}
+.ec-legend span{font-size:9px;color:rgba(255,255,255,0.35)}
+
+/* SECTION HEADING */
+.sec{padding:16px 24px 8px;font-size:11px;color:var(--ink3);letter-spacing:0.09em;text-transform:uppercase;font-weight:500}
+
+/* EXCHANGE CARD */
+.exc-card{margin:0 16px 12px;border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+.exc-top{
+  background:linear-gradient(135deg, var(--jade-mid) 0%, var(--jade) 100%);
+  padding:16px 18px;
+}
+.exc-flag-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.exc-flag{font-size:22px}
+.exc-amount{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;color:white;font-weight:500;
+}
+.exc-amount span{font-size:13px;color:rgba(255,255,255,0.55);font-family:'DM Sans',sans-serif;font-weight:400}
+.exc-arrow{
+  color:rgba(255,255,255,0.4);
+  font-size:11px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin:0 0 10px;
+}
+.exc-result-box{background:rgba(255,255,255,0.12);border-radius:12px;padding:12px 14px}
+.exc-result-row{display:flex;justify-content:space-between;align-items:center}
+.exc-result-label{font-size:12px;color:rgba(255,255,255,0.6)}
+.exc-result-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:white;font-weight:500}
+.exc-rate-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px}
+
+.exc-list{background:white;padding:4px 0}
+.exc-row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:0.5px solid var(--line)}
+.exc-row:last-child{border-bottom:none}
+.exc-place{flex:1}
+.exc-place-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:1px}
+.exc-place-detail{font-size:11px;color:var(--ink3)}
+.exc-rate-val2{font-size:15px;font-weight:700;color:var(--gn)}
+.best-tag{background:var(--gnb);color:var(--gn);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:600}
+.bad-rate{color:var(--lotus)}
+
+/* PEER NETWORK */
+.peer-scroll{display:flex;gap:10px;padding:0 16px 12px;overflow-x:auto;scrollbar-width:none}
+.peer-scroll::-webkit-scrollbar{display:none}
+.peer-card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  flex-shrink:0;
+  width:140px;
+  cursor:pointer;
+  transition:transform 0.15s;
+}
+.peer-card:active{transform:scale(0.97)}
+.peer-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.peer-av{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--jade-light),var(--jade));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:white;font-weight:600;
+  font-family:'DM Sans',sans-serif;
+  flex-shrink:0;
+}
+.peer-name{font-size:13px;font-weight:600;color:var(--ink)}
+.peer-school{font-size:10px;color:var(--ink3)}
+.peer-detail{font-size:11px;color:var(--ink3);line-height:1.4;margin-bottom:8px}
+.peer-tag{background:var(--gnb);color:var(--gn);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:600}
+.peer-add{
+  background:var(--gold-soft);
+  border:1.5px dashed var(--gold-mid);
+  border-radius:16px;padding:14px;
+  flex-shrink:0;width:110px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  cursor:pointer;gap:6px;
+}
+.peer-add-icon{font-size:22px}
+.peer-add-text{font-size:11px;color:var(--gold);font-weight:500;text-align:center;line-height:1.3}
+
+/* SURVIVAL KIT */
+.kit-card{margin:0 16px 12px;background:white;border-radius:20px;border:1px solid var(--line);overflow:hidden}
+.kit-item{display:flex;gap:12px;padding:13px 16px;border-bottom:0.5px solid var(--line);cursor:pointer;align-items:center}
+.kit-item:last-child{border-bottom:none}
+.kit-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.kit-info{flex:1}
+.kit-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.kit-desc{font-size:12px;color:var(--ink3);line-height:1.4}
+.kit-badge{font-size:11px;font-weight:600;border-radius:20px;padding:3px 10px;flex-shrink:0}
+.kit-badge.now{background:var(--gold-soft);color:var(--gold)}
+.kit-badge.done{background:var(--gnb);color:var(--gn)}
+.kit-badge.soon{background:var(--cream2);color:var(--ink3)}
+
+/* SARATHY TIP */
+.s-tip{
+  margin:0 16px 12px;
+  background:var(--jade-glow);
+  border:1px solid rgba(26,92,69,0.15);
+  border-radius:18px;
+  padding:16px;
+  display:flex;gap:12px;
+}
+.s-tip-av{
+  width:32px;height:32px;
+  background:var(--jade);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;color:white;font-style:italic;
+  flex-shrink:0;margin-top:1px;
+}
+.s-tip-content p{font-size:12px;font-weight:600;color:var(--jade);margin-bottom:4px}
+.s-tip-content span{font-size:13px;color:var(--ink2);line-height:1.6}
+.vn-word{color:var(--jade);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px}
+
+/* ═══════════════════════════════
+   CHAT SCREEN
+═══════════════════════════════ */
+.chat-hdr{
+  background:linear-gradient(160deg, var(--jade) 0%, #0F3D2C 100%);
+  padding:16px 20px;
+  display:flex;align-items:center;gap:14px;
+  flex-shrink:0;
+}
+.c-av{
+  width:44px;height:44px;
+  background:var(--gold);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;color:var(--ink);font-style:italic;font-weight:600;
+}
+.c-info p{color:white;font-size:15px;font-weight:600}
+.c-info span{color:rgba(255,255,255,0.45);font-size:12px}
+.odot{width:7px;height:7px;background:#4ADE80;border-radius:50%;display:inline-block;margin-right:5px}
+.c-back{
+  margin-left:auto;
+  background:rgba(255,255,255,0.12);
+  border:none;border-radius:20px;
+  color:rgba(255,255,255,0.7);
+  padding:6px 14px;font-size:12px;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+}
+.chat-msgs{
+  flex:1;overflow-y:auto;
+  padding:20px 16px;
+  display:flex;flex-direction:column;gap:14px;
+  scrollbar-width:none;
+  background:var(--cream);
+}
+.chat-msgs::-webkit-scrollbar{display:none}
+.msg{display:flex;gap:10px;max-width:84%}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.m-av{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--jade-light),var(--jade));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;color:white;font-style:italic;
+  flex-shrink:0;align-self:flex-end;
+}
+.bubble{
+  padding:12px 16px;border-radius:22px;
+  font-size:14px;line-height:1.65;color:var(--ink);
+}
+.msg.agent .bubble{
+  background:white;
+  border:1px solid var(--line);
+  border-bottom-left-radius:5px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+}
+.msg.user .bubble{
+  background:var(--jade);
+  color:white;
+  border-bottom-right-radius:5px;
+}
+.qrs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qr{
+  background:var(--cream2);
+  color:var(--jade);
+  border:1px solid rgba(26,92,69,0.2);
+  border-radius:22px;
+  padding:7px 14px;
+  font-size:13px;font-weight:500;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all 0.15s;
+}
+.qr:hover{background:var(--jade);color:white}
+.qr:disabled{opacity:0.4;cursor:default}
+.ty-row{display:flex;gap:10px;max-width:84%}
+.ty-bub{
+  background:white;border:1px solid var(--line);
+  border-radius:22px;border-bottom-left-radius:5px;
+  padding:12px 16px;display:flex;gap:5px;align-items:center;
+}
+.td{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:tb 1.2s infinite}
+.td:nth-child(2){animation-delay:0.2s}.td:nth-child(3){animation-delay:0.4s}
+@keyframes tb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.c-inp-row{
+  padding:12px 16px;
+  background:white;
+  border-top:1px solid var(--line);
+  display:flex;gap:10px;align-items:flex-end;
+  flex-shrink:0;
+}
+.c-ta{
+  flex:1;background:var(--cream2);
+  border:1px solid var(--line);border-radius:20px;
+  padding:10px 16px;font-size:14px;
+  font-family:'DM Sans',sans-serif;resize:none;max-height:80px;
+  line-height:1.4;color:var(--ink);outline:none;
+}
+.c-send{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--jade);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:opacity 0.15s;
+}
+.c-send svg{width:18px;height:18px;stroke:white;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.c-send:disabled{opacity:0.35}
+
+/* ═══════════════════════════════
+   MY GUIDE SCREEN
+═══════════════════════════════ */
+.guide-top{
+  background:linear-gradient(160deg, var(--jade) 0%, #0A2A1E 100%);
+  padding:22px 24px 24px;
+  flex-shrink:0;
+  position:relative;overflow:hidden;
+}
+.guide-top::after{content:'🌺';position:absolute;right:20px;bottom:-10px;font-size:60px;opacity:0.12}
+.gt-label{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:5px}
+.gt-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:white;font-weight:500;line-height:1.3;margin-bottom:4px}
+.gt-title em{color:var(--gold);font-style:italic}
+.gt-sub{font-size:13px;color:rgba(255,255,255,0.5)}
+
+.guide-step{
+  margin:0 16px 10px;
+  background:white;
+  border-radius:18px;
+  border:1px solid var(--line);
+  padding:16px;
+  overflow:hidden;
+}
+.guide-step.active-step{
+  border-color:var(--jade-light);
+  box-shadow:0 0 0 3px rgba(26,92,69,0.08);
+}
+.gs-active-label{
+  font-size:11px;font-weight:600;color:var(--jade);
+  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;
+  display:flex;align-items:center;gap:5px;
+}
+.gs-top{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.gs-num{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0;
+}
+.gs-num.done{background:var(--gnb);color:var(--gn)}
+.gs-num.now{background:var(--jade);color:white}
+.gs-num.soon{background:var(--cream2);color:var(--ink3)}
+.gs-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.gs-desc{font-size:13px;color:var(--ink3);line-height:1.5}
+.gs-detail{background:var(--cream2);border-radius:12px;padding:12px;margin-top:10px}
+.gs-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.gs-row:last-child{margin-bottom:0}
+.gs-dl{font-size:12px;color:var(--ink3)}
+.gs-dv{font-size:12px;font-weight:600;color:var(--ink)}
+.gs-dv.gn{color:var(--gn)}
+.gs-btn{
+  width:100%;margin-top:12px;
+  background:var(--jade);color:white;
+  border:none;border-radius:12px;padding:12px;
+  font-size:13px;font-weight:500;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.gs-btn.soft{background:var(--gold-soft);color:var(--gold)}
+
+/* ═══════════════════════════════
+   MY STORY SCREEN — most emotional
+═══════════════════════════════ */
+.story-top{
+  background:linear-gradient(160deg, var(--jade) 0%, #0A2A1E 100%);
+  padding:22px 24px 26px;
+  flex-shrink:0;
+  position:relative;overflow:hidden;
+}
+.story-top::before{content:'🌸';position:absolute;right:-10px;top:-10px;font-size:90px;opacity:0.1}
+.story-top::after{content:'🌺';position:absolute;left:10px;bottom:-20px;font-size:70px;opacity:0.08}
+.story-greeting{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;color:white;font-weight:500;line-height:1.25;margin-bottom:4px;
+}
+.story-greeting em{color:var(--gold);font-style:italic}
+.story-sub{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:12px}
+.story-courage{
+  background:rgba(201,150,58,0.15);
+  border:1px solid rgba(201,150,58,0.2);
+  border-radius:12px;
+  padding:12px 14px;
+  font-size:13px;
+  color:rgba(255,255,255,0.8);
+  line-height:1.6;
+  font-style:italic;
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;
+}
+.story-courage strong{color:var(--gold);font-style:normal}
+
+/* LETTER FROM SARATHY */
+.sarathy-letter{
+  margin:14px 16px 12px;
+  background:linear-gradient(135deg, var(--jade) 0%, var(--jade-mid) 100%);
+  border-radius:20px;
+  padding:20px;
+  position:relative;overflow:hidden;
+}
+.sarathy-letter::after{content:'🌸';position:absolute;right:12px;bottom:8px;font-size:50px;opacity:0.15}
+.sl-from{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.sl-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;color:white;font-weight:400;line-height:1.65;
+}
+.sl-text em{color:var(--gold);font-style:italic}
+.sl-sign{
+  margin-top:14px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;color:rgba(255,255,255,0.6);
+  font-style:italic;
+}
+
+/* PERSONA BLOCK */
+.persona-blk{
+  margin:0 16px 12px;
+  background:white;
+  border-radius:20px;
+  border:1px solid var(--line);
+  overflow:hidden;
+}
+.pb-top{
+  background:linear-gradient(135deg, #0D2B20 0%, #1A5C45 100%);
+  padding:16px 18px;
+  position:relative;overflow:hidden;
+}
+.pb-top::after{content:'🌸';position:absolute;right:12px;top:8px;font-size:40px;opacity:0.2}
+.pb-badge{display:inline-flex;align-items:center;gap:5px;background:var(--gold);color:var(--ink);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;margin-bottom:8px}
+.pb-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:white;font-weight:500;margin-bottom:4px}
+.pb-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.55;margin-bottom:12px}
+.pb-traits{display:flex;flex-wrap:wrap;gap:6px}
+.pt{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:500}
+.pb-stats{display:grid;grid-template-columns:1fr 1fr;gap:0;background:white}
+.pbs-item{padding:14px 16px;border-right:0.5px solid var(--line);border-top:0.5px solid var(--line)}
+.pbs-item:nth-child(2){border-right:none}
+.pbs-item:nth-child(3){border-top:0.5px solid var(--line);border-right:0.5px solid var(--line)}
+.pbs-item:nth-child(4){border-top:0.5px solid var(--line);border-right:none}
+.pbs-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--jade);font-weight:500;line-height:1}
+.pbs-label{font-size:11px;color:var(--ink3);margin-top:3px}
+
+/* JOURNAL */
+.journal{
+  margin:0 16px 10px;
+  background:var(--cream2);
+  border-radius:16px;
+  padding:16px;
+  border-left:3px solid var(--jade);
+}
+.j-date{font-size:11px;color:var(--ink3);margin-bottom:5px;font-style:italic}
+.j-text{font-size:13px;color:var(--ink2);line-height:1.65}
+.j-text strong{color:var(--jade);font-weight:600}
+.j-text .vn-word{color:var(--jade);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px}
+
+/* MILESTONES */
+.mile-scroll{display:flex;gap:8px;padding:0 16px 12px;overflow-x:auto;scrollbar-width:none}
+.mile-scroll::-webkit-scrollbar{display:none}
+.m-chip{background:white;border:1px solid var(--line);border-radius:16px;padding:12px;flex-shrink:0;text-align:center;min-width:105px}
+.m-chip .me{font-size:24px;margin-bottom:5px}
+.m-chip .ml{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.m-chip .ms{font-size:10px;color:var(--ink3)}
+.m-chip.locked{opacity:0.45;border-style:dashed}
+.m-chip.unlocked{border-color:var(--gold);background:var(--gold-soft)}
+.m-chip.unlocked .ml{color:var(--gold)}
+
+/* HOME MESSAGE from Vietnam */
+.nhà-card{
+  margin:0 16px 12px;
+  background:linear-gradient(135deg,#2A0A12 0%,#4A1020 100%);
+  border-radius:20px;padding:18px;
+  position:relative;overflow:hidden;
+}
+.nhà-card::after{content:'❤️';position:absolute;right:14px;top:12px;font-size:40px;opacity:0.2}
+.nhà-label{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.nhà-text{font-family:'Cormorant Garamond',serif;font-size:17px;color:white;font-weight:400;line-height:1.55;margin-bottom:12px}
+.nhà-text em{color:var(--lotus-mid);font-style:italic}
+.nhà-btn{
+  background:rgba(255,255,255,0.12);color:white;border:none;
+  border-radius:12px;padding:10px 16px;font-size:13px;font-weight:500;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  display:flex;align-items:center;gap:6px;
+}
 </style>
 </head>
 <body>
 <div class="phone">
 
-<!-- HOME -->
-<div class="screen active" id="screen-home">
-  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
-  <div class="sc">
-    <div class="gr"><p class="nm">Good morning, Aashmiin ✦</p><p class="sb2">Thursday · May 28 · SGD $1,247 available</p></div>
-    <div class="ms org" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')">
-      <div class="mic lo"><i class="ti ti-message-circle"></i></div>
-      <div class="mt"><p class="w">How are you feeling about money today?</p><span class="w">Sarathy is here — tap to check in</span></div>
-      <i class="ti ti-chevron-right" style="color:rgba(255,255,255,0.7);font-size:18px;"></i>
-    </div>
-    <div class="mg">
-      <div class="mc"><div class="lb">This Month In</div><div class="am">$2,400</div><div class="sb3 gn">↑ Allowance received</div></div>
-      <div class="mc"><div class="lb">Spent So Far</div><div class="am">$1,153</div><div class="sb3 rd">↑ $180 vs last month</div><div class="bb"><div class="bf" style="width:48%"></div></div></div>
-      <div class="mc"><div class="lb">Remaining</div><div class="am">$1,247</div><div class="sb3 gn">On track ✓</div></div>
-      <div class="mc"><div class="lb">Goals Saved</div><div class="am">$1,785</div><div class="sb3 mu">across 2 goals</div></div>
-    </div>
-    <div class="ms wh" onclick="showPause()">
-      <div class="mic ti"><i class="ti ti-hand-stop"></i></div>
-      <div class="mt"><p class="d">Pause Button active</p><span class="m">Sarathy checks in before purchases over $50</span></div>
-      <i class="ti ti-chevron-right" style="color:var(--mu);font-size:18px;"></i>
-    </div>
-    <div class="sl" style="margin-top:10px;">Mood–Money Mirror</div>
-    <div class="card mrc">
-      <p class="mi">You spent <strong>$312 more on food delivery</strong> in weeks when you checked in feeling stressed. Last month that was 3 weeks in a row.</p>
-      <div style="display:flex;gap:10px;align-items:center;"><div class="mt2"><i class="ti ti-sparkles" style="font-size:12px;"></i> Sarathy noticed</div><span class="ml" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')">Talk about it →</span></div>
-    </div>
-    <div class="sl">Sarathy alerts</div>
-    <div style="padding:0 16px 4px;display:flex;flex-direction:column;gap:8px;">
-      <div style="background:var(--rdb);border:1px solid #FECDD3;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center;cursor:pointer;" onclick="go('goals')">
-        <i class="ti ti-shield-exclamation" style="color:var(--rd);font-size:18px;flex-shrink:0;"></i>
-        <p style="font-size:13px;color:var(--tx);flex:1;">Emergency fund covers <strong style="color:var(--rd);">1.8 months</strong> — target is 6.</p>
-        <i class="ti ti-chevron-right" style="color:var(--mu);font-size:16px;"></i>
-      </div>
-      <div style="background:var(--blb);border:1px solid #BFDBFE;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center;cursor:pointer;" onclick="go('nri')">
-        <i class="ti ti-heart-rate-monitor" style="color:var(--bl);font-size:18px;flex-shrink:0;"></i>
-        <p style="font-size:13px;color:var(--tx);flex:1;">You may be <strong style="color:var(--bl);">underinsured</strong> in Singapore.</p>
-        <i class="ti ti-chevron-right" style="color:var(--mu);font-size:16px;"></i>
-      </div>
-    </div>
-    <div class="sl" style="margin-top:10px;">Quick actions</div>
-    <div class="qa">
-      <button class="qb" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
-      <button class="qb" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
-      <button class="qb" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI Guide</span></button>
-      <button class="qb" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Ask Sarathy</span></button>
-    </div>
-  </div>
-  <nav class="nb">
-    <button class="ni on" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
-    <button class="ni" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
-    <button class="ni" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
-    <button class="ni" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
-    <button class="ni" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
-  </nav>
-  <div class="po" id="pause-overlay">
-    <div class="pm">
-      <p class="pl">Pause Button</p><h2>Before you buy this—</h2>
-      <div class="pa">SGD $89.90</div><div class="pi">ASOS — Summer dress haul</div>
-      <div class="ps"><p class="pf">Sarathy says</p><p>You checked in feeling stressed this morning. I've noticed you spend about $180 more on shopping in tough weeks. Still want to go ahead? That's completely okay — I just wanted you to know.</p></div>
-      <div class="pb2"><button class="by" onclick="hidePause()">Yes, buy it</button><button class="bn2" onclick="hidePause()">Actually, no</button></div>
-    </div>
-  </div>
-</div>
+<!-- ═══════════════ HOME ═══════════════ -->
+<div class="screen active" id="s-home">
+  <div class="status"><span class="st">9:41 AM</span><span class="si">Singapore 🇸🇬</span></div>
+  <div class="scroll">
 
-<!-- CHAT -->
-<div class="screen" id="screen-chat">
-  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
-  <div class="chh"><div class="ca">S</div><div class="ci"><p>Sarathy</p><span><span class="do"></span>Always here for you</span></div></div>
-  <div class="cm" id="chat-messages">
-    <div class="msg ag">
-      <div class="av">S</div>
-      <div>
-        <div class="bu">Hey — I'm Sarathy. Think of me as your financial companion. Not a bank. Not an advisor. Just someone who genuinely gets it and is always on your side.<br><br>When you think about money right now — what's the first feeling that comes up?</div>
-        <div class="cs">
-          <button class="cb" onclick="pick(this,'Stressed or overwhelmed')">Stressed or overwhelmed</button>
-          <button class="cb" onclick="pick(this,'Confused — I don\'t know where I stand')">Confused — don't know where I stand</button>
-          <button class="cb" onclick="pick(this,'Okay but could be doing better')">Okay but could be better</button>
-          <button class="cb" onclick="pick(this,'Actually pretty good')">Actually pretty good</button>
+    <div class="hero">
+      <div class="h-vn">Sarathy · Ngày đầu tiên 🌸</div>
+      <div class="h-greet">Chào <em>Linh</em> — <br/>You made it.</div>
+      <div class="h-sub">Xin chào from Singapore. We've been waiting for you.</div>
+      <div class="h-msg">
+        I know you're far from <span class="vn-word">nhà</span> right now — far from your mum's cooking, your friends, everything familiar. That takes real courage.<br><br>
+        And right now there's one thing making everything harder: <strong>you have VND but no SGD.</strong><br><br>
+        Let's fix that first. Together. Right now.
+      </div>
+      <button class="h-btn" onclick="openChat('day1')">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Nói chuyện với Sarathy
+      </button>
+    </div>
+
+    <!-- SURVIVAL PROGRESS -->
+    <div class="emotional-card">
+      <div class="ec-label">Hành trình của bạn · Your journey</div>
+      <div class="ec-text">Step 2 of 5 — <em>Get your first SGD today</em></div>
+      <div class="ec-steps">
+        <div class="ec-step done"></div>
+        <div class="ec-step now"></div>
+        <div class="ec-step todo"></div>
+        <div class="ec-step todo"></div>
+        <div class="ec-step todo"></div>
+      </div>
+      <div class="ec-legend">
+        <span>Arrived ✓</span>
+        <span>Get SGD ←</span>
+        <span>Bank</span>
+        <span>Wise</span>
+        <span>Tự do 🎉</span>
+      </div>
+    </div>
+
+    <!-- VND → SGD EXCHANGE -->
+    <div class="sec">Đổi tiền — Best rates near you now</div>
+    <div class="exc-card">
+      <div class="exc-top">
+        <div class="exc-flag-row">
+          <div class="exc-flag">🇻🇳</div>
+          <div>
+            <div class="exc-amount">1,000,000 VND <span>Vietnamese Đồng</span></div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px;">Your money at home</div>
+          </div>
+        </div>
+        <div class="exc-arrow">↓ converts to today</div>
+        <div class="exc-result-box">
+          <div class="exc-result-row">
+            <span class="exc-result-label">You receive</span>
+            <span class="exc-result-val">SGD $53.20</span>
+          </div>
+          <div class="exc-rate-sub">Rate: 1 SGD = 18,797 VND · Updated 9:30 AM</div>
+        </div>
+      </div>
+      <div class="exc-list">
+        <div style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:0.06em;padding:10px 16px 6px;">Where to go right now</div>
+        <div class="exc-row">
+          <div class="exc-place">
+            <div class="exc-place-name">Mustafa Centre 🌟 <span class="best-tag">Best</span></div>
+            <div class="exc-place-detail">145 Syed Alwi Rd · Open 24hrs · Cash exchange</div>
+          </div>
+          <div class="exc-rate-val2">18,850</div>
+        </div>
+        <div class="exc-row">
+          <div class="exc-place">
+            <div class="exc-place-name">Wise App</div>
+            <div class="exc-place-detail">Mid-market rate · Needs bank account first</div>
+          </div>
+          <div class="exc-rate-val2">18,797</div>
+        </div>
+        <div class="exc-row">
+          <div class="exc-place">
+            <div class="exc-place-name">Changi Airport T3</div>
+            <div class="exc-place-detail">Decent — if you're still there</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--gold);">18,200</div>
+        </div>
+        <div class="exc-row">
+          <div class="exc-place">
+            <div class="exc-place-name">Bank branch</div>
+            <div class="exc-place-detail">Tránh xa — worst rates + fees</div>
+          </div>
+          <div class="bad-rate" style="font-size:15px;font-weight:700;">17,400</div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="cib">
-    <textarea class="ci2" id="chat-input" placeholder="Message Sarathy..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send();}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
-    <button class="sb4" id="send-btn" onclick="send()"><i class="ti ti-send"></i></button>
-  </div>
-  <nav class="nb">
-    <button class="ni" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
-    <button class="ni on" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
-    <button class="ni" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
-    <button class="ni" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
-    <button class="ni" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
-  </nav>
-</div>
 
-<!-- GOALS -->
-<div class="screen" id="screen-goals">
-  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
-  <div class="sh"><h1>Goals & Safety Net</h1><p>Dreams, emergencies, and debt — all in one place</p></div>
-  <div class="sc">
-    <div class="sl">Emergency Fund</div>
-    <div style="background:linear-gradient(135deg,var(--gnb) 0%,#DCFCE7 100%);border:1px solid #BBF7D0;border-radius:16px;padding:16px;margin:0 16px 12px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
-          <p style="font-size:12px;color:#15803D;font-weight:500;">Your safety net</p>
-          <p style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--gn);margin:4px 0;">SGD $3,240</p>
-          <p style="font-size:11px;color:#15803D;"><span id="ef-months">2.2</span> months covered · target: 6 months</p>
+    <!-- SARATHY TIP -->
+    <div class="s-tip">
+      <div class="s-tip-av">S</div>
+      <div class="s-tip-content">
+        <p>Lời khuyên của Sarathy</p>
+        <span>If you have any VND cash notes on you right now — even a little — go to Mustafa Centre. It's open all night. Get enough for 2 weeks and you'll breathe so much easier. <span class="vn-word">Mình lo cho bạn.</span> I've got you.</span>
+      </div>
+    </div>
+
+    <!-- PEER NETWORK — what she needed and never had -->
+    <div class="sec">Người Việt gần bạn · Vietnamese students near you</div>
+    <div style="padding:0 16px 6px;font-size:13px;color:var(--ink2);line-height:1.55;font-style:italic;">These students have SGD and are happy to exchange with you. No bank. No fees. Just cộng đồng.</div>
+    <div class="peer-scroll">
+      <div class="peer-card" onclick="openChat('peer_exchange')">
+        <div class="peer-top">
+          <div class="peer-av">M</div>
+          <div><div class="peer-name">Minh</div><div class="peer-school">NUS · Year 2</div></div>
         </div>
-        <div style="background:var(--gnb);border:1px solid #BBF7D0;border-radius:10px;padding:8px 12px;text-align:center;">
-          <p style="font-size:18px;font-weight:700;color:var(--gn);">37%</p>
-          <p style="font-size:10px;color:#15803D;">of goal</p>
+        <div class="peer-detail">Has SGD 200 · From Hà Nội · Happy to meet Clementi MRT</div>
+        <div class="peer-tag">✓ Verified</div>
+      </div>
+      <div class="peer-card" onclick="openChat('peer_exchange')">
+        <div class="peer-top">
+          <div class="peer-av">P</div>
+          <div><div class="peer-name">Phương</div><div class="peer-school">NTU · Year 3</div></div>
+        </div>
+        <div class="peer-detail">Has SGD 150 · Going home next month · Needs VND back</div>
+        <div class="peer-tag">✓ Verified</div>
+      </div>
+      <div class="peer-card" onclick="openChat('peer_exchange')">
+        <div class="peer-top">
+          <div class="peer-av">T</div>
+          <div><div class="peer-name">Thu</div><div class="peer-school">SMU · Year 1</div></div>
+        </div>
+        <div class="peer-detail">Has SGD 80 · From Đà Nẵng · Just settled in too</div>
+        <div class="peer-tag">✓ Verified</div>
+      </div>
+      <div class="peer-add" onclick="openChat('join_network')">
+        <div class="peer-add-icon">🤝</div>
+        <div class="peer-add-text">Join the mạng lưới</div>
+      </div>
+    </div>
+
+    <!-- SURVIVAL KIT -->
+    <div class="sec">Bộ sinh tồn của bạn · Your survival kit</div>
+    <div class="kit-card">
+      <div class="kit-item" onclick="go('s-guide')">
+        <div class="kit-icon" style="background:var(--gnb);">💵</div>
+        <div class="kit-info"><div class="kit-title">Get your first SGD</div><div class="kit-desc">Exchange, borrow, peer network — step by step</div></div>
+        <div class="kit-badge now">Now →</div>
+      </div>
+      <div class="kit-item" onclick="openChat('bank_account')">
+        <div class="kit-icon" style="background:#EFF6FF;">🏦</div>
+        <div class="kit-info"><div class="kit-title">Open a Singapore bank</div><div class="kit-desc">DBS or OCBC · passport + student pass · 30 mins</div></div>
+        <div class="kit-badge soon">Step 3</div>
+      </div>
+      <div class="kit-item" onclick="openChat('wise_setup')">
+        <div class="kit-icon" style="background:var(--gold-soft);">📲</div>
+        <div class="kit-info"><div class="kit-title">Set up Wise</div><div class="kit-desc">Never have the currency problem again</div></div>
+        <div class="kit-badge soon">Step 4</div>
+      </div>
+      <div class="kit-item" onclick="openChat('paynow')">
+        <div class="kit-icon" style="background:var(--cream2);">⚡</div>
+        <div class="kit-info"><div class="kit-title">Link PayNow</div><div class="kit-desc">Instant free transfers to any Singapore friend</div></div>
+        <div class="kit-badge soon">Step 5</div>
+      </div>
+    </div>
+
+    <!-- MESSAGE FROM VIETNAM / HOMESICKNESS -->
+    <div class="nhà-card">
+      <div class="nhà-label">Từ Sarathy · From Sarathy</div>
+      <div class="nhà-text">
+        Missing <em>nhà</em> is completely normal right now. You left behind so much — your mum, your friends, everything familiar. <em>Nhưng bạn mạnh lắm.</em> But you are so strong.<br><br>
+        Every student who came before you felt exactly this. Sarathy is here so you never feel financially alone in this city.
+      </div>
+      <button class="nhà-btn" onclick="openChat('homesick')">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Tell Sarathy how you're feeling
+      </button>
+    </div>
+    <div style="height:20px"></div>
+  </div>
+  <nav class="nav">
+    <button class="nb on" onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Nhà</span></button>
+    <button class="nb" onclick="openChat('day1')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Sarathy</span></button>
+    <button class="nb" onclick="go('s-guide')"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Hướng dẫn</span></button>
+    <button class="nb" onclick="go('s-story')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg><span>Câu chuyện</span></button>
+  </nav>
+</div>
+
+<!-- ═══════════════ CHAT ═══════════════ -->
+<div class="screen" id="s-chat">
+  <div class="status"><span class="st">9:41 AM</span><span class="si">Singapore 🇸🇬</span></div>
+  <div class="chat-hdr">
+    <div class="c-av">S</div>
+    <div class="c-info">
+      <p>Sarathy</p>
+      <span><span class="odot"></span>Luôn ở đây với bạn · Always here</span>
+    </div>
+    <button class="c-back" onclick="go('s-home')">← Back</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"></div>
+  <div class="c-inp-row">
+    <textarea class="c-ta" id="chat-inp" placeholder="Nói chuyện với Sarathy…" rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send()}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
+    <button class="c-send" id="send-btn" onclick="send()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <nav class="nav">
+    <button class="nb" onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Nhà</span></button>
+    <button class="nb on" onclick="openChat('day1')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Sarathy</span></button>
+    <button class="nb" onclick="go('s-guide')"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Hướng dẫn</span></button>
+    <button class="nb" onclick="go('s-story')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg><span>Câu chuyện</span></button>
+  </nav>
+</div>
+
+<!-- ═══════════════ GUIDE ═══════════════ -->
+<div class="screen" id="s-guide">
+  <div class="status"><span class="st">9:41 AM</span><span class="si">Singapore 🇸🇬</span></div>
+  <div class="guide-top">
+    <div class="gt-label">Hướng dẫn của bạn · Your personal guide</div>
+    <div class="gt-title">5 steps to feeling<br/><em>financially safe</em> in Singapore</div>
+    <div class="gt-sub">Sarathy walks every step with you. Một bước một lúc.</div>
+  </div>
+  <div class="scroll" style="padding-top:14px;">
+
+    <div class="guide-step" style="border-color:var(--gnb);">
+      <div class="gs-top">
+        <div class="gs-num done">✓</div>
+        <div class="gs-info"><div class="gs-title">Bạn đã đến. You arrived. ✈️</div><div class="gs-desc">The hardest part is already behind you. Leaving everything familiar — that took courage. Everything from here is just practical steps.</div></div>
+      </div>
+    </div>
+
+    <div class="guide-step active-step">
+      <div class="gs-active-label">🌸 You are here — Bạn đang ở đây</div>
+      <div class="gs-top">
+        <div class="gs-num now">2</div>
+        <div class="gs-info"><div class="gs-title">Get your first SGD — hôm nay</div><div class="gs-desc">You have VND but no card. Here are your 3 options right now, in order.</div></div>
+      </div>
+      <div class="gs-detail">
+        <div style="font-size:12px;font-weight:600;color:var(--ink);margin-bottom:8px;">Option 1 — Cash exchange (fastest)</div>
+        <div class="gs-row"><span class="gs-dl">Best spot</span><span class="gs-dv">Mustafa Centre — open 24hrs</span></div>
+        <div class="gs-row"><span class="gs-dl">Address</span><span class="gs-dv">145 Syed Alwi Rd</span></div>
+        <div class="gs-row"><span class="gs-dl">Rate</span><span class="gs-dv gn">18,850 VND per SGD</span></div>
+        <div class="gs-row"><span class="gs-dl">Bring</span><span class="gs-dv">VND cash notes only</span></div>
+      </div>
+      <div class="gs-detail" style="margin-top:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--ink);margin-bottom:8px;">Option 2 — Peer exchange (no cash)</div>
+        <div class="gs-row"><span class="gs-dl">What</span><span class="gs-dv">Swap with Vietnamese students</span></div>
+        <div class="gs-row"><span class="gs-dl">Rate</span><span class="gs-dv gn">Fair rate, không phí</span></div>
+        <div class="gs-row"><span class="gs-dl">How</span><span class="gs-dv">Sarathy connects you instantly</span></div>
+      </div>
+      <button class="gs-btn" onclick="openChat('get_sgd')">Sarathy, giúp tôi lấy SGD ngay</button>
+    </div>
+
+    <div class="guide-step">
+      <div class="gs-top">
+        <div class="gs-num soon">3</div>
+        <div class="gs-info"><div class="gs-title">Open a Singapore bank account</div><div class="gs-desc">DBS or OCBC — mang hộ chiếu và student pass. Takes 30 minutes.</div></div>
+      </div>
+      <div class="gs-detail">
+        <div class="gs-row"><span class="gs-dl">Best for students</span><span class="gs-dv">DBS Multiplier</span></div>
+        <div class="gs-row"><span class="gs-dl">Documents</span><span class="gs-dv">Passport + Student Pass</span></div>
+        <div class="gs-row"><span class="gs-dl">Minimum deposit</span><span class="gs-dv gn">SGD $0 for students</span></div>
+      </div>
+      <button class="gs-btn soft" onclick="openChat('bank_account')">Hỏi Sarathy — which bank?</button>
+    </div>
+
+    <div class="guide-step">
+      <div class="gs-top">
+        <div class="gs-num soon">4</div>
+        <div class="gs-info"><div class="gs-title">Set up Wise — never worry about this again</div><div class="gs-desc">Send money from Vietnam to Singapore in minutes. This is what solves the problem permanently.</div></div>
+      </div>
+      <div class="gs-detail">
+        <div class="gs-row"><span class="gs-dl">Fee on ₫10 million VND</span><span class="gs-dv gn">Only SGD $1.20</span></div>
+        <div class="gs-row"><span class="gs-dl">Compared to a bank</span><span class="gs-dv" style="color:var(--lotus);">SGD $8–15</span></div>
+        <div class="gs-row"><span class="gs-dl">Arrival time</span><span class="gs-dv">Same day</span></div>
+      </div>
+      <button class="gs-btn soft" onclick="openChat('wise_setup')">Hướng dẫn cài Wise</button>
+    </div>
+
+    <div class="guide-step" style="margin-bottom:20px;">
+      <div class="gs-top">
+        <div class="gs-num soon">5</div>
+        <div class="gs-info"><div class="gs-title">Link PayNow — chuyển tiền ngay lập tức</div><div class="gs-desc">Instant free transfers to every friend in Singapore. This is how Singapore runs.</div></div>
+      </div>
+      <button class="gs-btn soft" onclick="openChat('paynow')">Cách cài PayNow?</button>
+    </div>
+  </div>
+  <nav class="nav">
+    <button class="nb" onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Nhà</span></button>
+    <button class="nb" onclick="openChat('day1')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Sarathy</span></button>
+    <button class="nb on" onclick="go('s-guide')"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Hướng dẫn</span></button>
+    <button class="nb" onclick="go('s-story')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg><span>Câu chuyện</span></button>
+  </nav>
+</div>
+
+<!-- ═══════════════ MY STORY ═══════════════ -->
+<div class="screen" id="s-story">
+  <div class="status"><span class="st">9:41 AM</span><span class="si">Singapore 🇸🇬</span></div>
+  <div class="story-top">
+    <div class="story-greeting">Câu chuyện của <em>Linh</em> 🌸</div>
+    <div class="story-sub">NUS · From Việt Nam · Ngày đầu tiên · Semester 1</div>
+    <div class="story-courage">
+      "Tôi đã để lại tất cả để bắt đầu lại."<br/>
+      <strong>"I left everything behind to start again."</strong><br/>
+      That is not an ordinary thing to do at 19 years old.
+    </div>
+  </div>
+  <div class="scroll">
+
+    <!-- LETTER FROM SARATHY — most emotional part -->
+    <div class="sarathy-letter">
+      <div class="sl-from">Thư từ Sarathy · A letter for Linh</div>
+      <div class="sl-text">
+        Linh, I want you to know something important.<br><br>
+        You went through your first semester in Singapore with no card, no SGD, no guide. You figured it out yourself — through your friends, through trust, through sheer determination.<br><br>
+        <em>Bạn đã làm được.</em> You did that.<br><br>
+        Sarathy was built so that the next Linh who arrives — the next Vietnamese girl sitting in a foreign city with VND in a bank she cannot access — never has to figure it out alone the way you did.<br><br>
+        I am here. <em>Mình luôn ở đây.</em>
+      </div>
+      <div class="sl-sign">— Sarathy 🌸</div>
+    </div>
+
+    <!-- PERSONA -->
+    <div class="persona-blk">
+      <div class="pb-top">
+        <div class="pb-badge">✦ Sarathy thấy bạn</div>
+        <div class="pb-title">Người Can Đảm</div>
+        <div class="pb-desc">The Brave One. You left your mum, your city, your language — and you still showed up. You are resourceful in ways most people never have to be. You built a support network from scratch when the system failed you. That is remarkable.</div>
+        <div class="pb-traits">
+          <div class="pt">Dũng cảm · Brave</div>
+          <div class="pt">Sáng tạo · Creative</div>
+          <div class="pt">Cộng đồng · Community</div>
+          <div class="pt">Kiên nhẫn · Resilient</div>
         </div>
       </div>
-      <div style="height:6px;background:#BBF7D0;border-radius:3px;margin:12px 0 6px;overflow:hidden;"><div style="height:100%;width:37%;background:var(--gn);border-radius:3px;"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#15803D;margin-bottom:10px;"><span>Current: $3,240</span><span>Target: SGD $<span id="ef-need">8,700</span></span></div>
-      <div style="background:rgba(255,255,255,0.6);border-radius:10px;padding:10px;">
-        <p style="font-size:12px;color:#15803D;font-weight:500;margin-bottom:4px;">Your monthly expenses: SGD $<span id="ef-exp">1,450</span></p>
-        <input type="range" style="width:100%;accent-color:var(--gn);display:block;margin:6px 0;" id="ef-slider" min="500" max="3000" value="1450" step="50" oninput="updateEF(this.value)">
-        <p style="font-size:11px;color:#15803D;">Drag to adjust → need 6x = SGD $<span id="ef-need2">8,700</span></p>
+      <div class="pb-stats">
+        <div class="pbs-item"><div class="pbs-val">Day 1</div><div class="pbs-label">In Singapore</div></div>
+        <div class="pbs-item"><div class="pbs-val">5 steps</div><div class="pbs-label">To financial safety</div></div>
+        <div class="pbs-item"><div class="pbs-val">3</div><div class="pbs-label">Vietnamese friends nearby</div></div>
+        <div class="pbs-item"><div class="pbs-val">$0</div><div class="pbs-label">Fees with Wise setup</div></div>
       </div>
-      <button onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')" style="margin-top:12px;background:var(--gn);color:white;border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;"><i class="ti ti-plus"></i> Add to emergency fund</button>
     </div>
-    <div class="sl">Debt Pulse</div>
-    <div style="background:linear-gradient(135deg,var(--rdb) 0%,#FFE4E6 100%);border:1px solid #FECDD3;border-radius:16px;padding:16px;margin:0 16px 12px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <p style="font-size:13px;font-weight:600;color:var(--dk);">Your current debt</p>
-        <div style="background:var(--rd);color:white;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;">SGD $4,200 total</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid #FECDD3;font-size:13px;"><span style="color:var(--dk);">Student credit card</span><span style="color:var(--rd);font-weight:600;">$1,800</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid #FECDD3;font-size:13px;"><span style="color:var(--dk);">Phone installment plan</span><span style="color:var(--rd);font-weight:600;">$1,200</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;"><span style="color:var(--dk);">Study loan (interest-free)</span><span style="color:var(--rd);font-weight:600;">$1,200</span></div>
-      <p style="font-size:12px;color:#9F1239;margin-top:10px;line-height:1.5;">Sarathy's tip: Pay the credit card first — it's the only one charging you interest. Even $50 extra per month saves you $180 this year.</p>
-      <button onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')" style="margin-top:10px;background:white;color:var(--rd);border:1px solid #FECDD3;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;"><i class="ti ti-message-circle"></i> Talk to Sarathy about debt</button>
+
+    <!-- JOURNAL -->
+    <div class="sec">Nhật ký · Sarathy's journal about you</div>
+    <div class="journal">
+      <div class="j-date">Hôm nay · Today, Day 1</div>
+      <div class="j-text">Linh arrived in Singapore with courage and VND. The city is loud and new and everything feels foreign. <strong>But she is not alone.</strong> Sarathy is here, and for the first time, a Vietnamese student doesn't have to figure out the first week by herself.</div>
     </div>
-    <div class="sl">Your Goals</div>
-    <div class="gc">
-      <div class="gt"><div><div class="gn2">✈️ Dream Goa Trip</div><div class="gct">Travel & Adventure</div></div><div class="gp">64%</div></div>
-      <div class="gam"><span>SGD <strong>$1,280</strong> saved</span><span>of SGD $2,000</span></div>
-      <div class="gb"><div class="gbf" style="width:64%"></div></div>
-      <button class="ga"><i class="ti ti-plus"></i> Add SGD $50</button>
+    <div class="journal">
+      <div class="j-date">Điều Sarathy nhận thấy từ câu chuyện của bạn</div>
+      <div class="j-text">You said: <strong>"In case you didn't have cash on hand like me, you should find some people who come from the same country."</strong> You invented peer exchange out of necessity. <span class="vn-word">Thật thông minh.</span> That insight is now built into Sarathy for every student who comes after you.</div>
     </div>
-    <div class="gc">
-      <div class="gt"><div><div class="gn2">💻 New MacBook</div><div class="gct">Gadgets & Tech</div></div><div class="gp">25%</div></div>
-      <div class="gam"><span>SGD <strong>$505</strong> saved</span><span>of SGD $2,000</span></div>
-      <div class="gb"><div class="gbf" style="width:25%"></div></div>
-      <button class="ga"><i class="ti ti-plus"></i> Add SGD $50</button>
+    <div class="journal">
+      <div class="j-date">Nhớ nhà · Missing home</div>
+      <div class="j-text">Missing your mum's <span class="vn-word">phở</span>, your friends, your neighbourhood — that feeling is real and it deserves to be named. Homesickness is not weakness. It means you loved deeply where you came from. <strong>Sarathy holds space for that.</strong></div>
     </div>
-    <button class="ngb"><i class="ti ti-plus"></i> Create new goal</button>
+
+    <!-- MILESTONES -->
+    <div class="sec">Cột mốc · Your milestones</div>
+    <div class="mile-scroll">
+      <div class="m-chip unlocked"><div class="me">✈️</div><div class="ml">Arrived</div><div class="ms">Hôm nay</div></div>
+      <div class="m-chip locked"><div class="me">💵</div><div class="ml">First SGD</div><div class="ms">Coming soon</div></div>
+      <div class="m-chip locked"><div class="me">🏦</div><div class="ml">Bank open</div><div class="ms">Step 3</div></div>
+      <div class="m-chip locked"><div class="me">⚡</div><div class="ml">Wise ready</div><div class="ms">Step 4</div></div>
+      <div class="m-chip locked"><div class="me">🌸</div><div class="ml">Tự do</div><div class="ms">Financial freedom</div></div>
+    </div>
+    <div style="height:20px"></div>
   </div>
-  <nav class="nb">
-    <button class="ni" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
-    <button class="ni" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
-    <button class="ni on" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
-    <button class="ni" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
-    <button class="ni" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
+  <nav class="nav">
+    <button class="nb" onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Nhà</span></button>
+    <button class="nb" onclick="openChat('day1')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Sarathy</span></button>
+    <button class="nb" onclick="go('s-guide')"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Hướng dẫn</span></button>
+    <button class="nb on" onclick="go('s-story')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg><span>Câu chuyện</span></button>
   </nav>
 </div>
 
-<!-- NRI -->
-<div class="screen" id="screen-nri">
-  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
-  <div class="sh"><h1>NRI Navigator</h1><p>Singapore's financial system, made simple for you</p></div>
-  <div class="sc">
-    <div class="ns">
-      <div class="nc"><div class="vl">0%</div><div class="lb2">Capital Gains Tax</div><div class="sv">Unique to Singapore ✓</div></div>
-      <div class="nc"><div class="vl">$8.05B</div><div class="lb2">NRI remittances/yr</div><div class="sv">Optimise yours →</div></div>
-    </div>
-    <div class="sl">Insurance Gap Check</div>
-    <div style="background:linear-gradient(135deg,var(--blb) 0%,#DBEAFE 100%);border:1px solid #BFDBFE;border-radius:16px;padding:16px;margin:0 16px 12px;">
-      <p style="font-size:13px;color:#1D4ED8;font-weight:500;margin-bottom:10px;">72% of students & NRIs in Singapore are underinsured. Are you?</p>
-      <div class="in-row"><span class="in-label">Health insurance (Singapore)</span><span class="in-badge no">Not confirmed</span></div>
-      <div class="in-row"><span class="in-label">MediShield Life</span><span class="in-badge na">EP holders: N/A</span></div>
-      <div class="in-row"><span class="in-label">Life insurance</span><span class="in-badge no">Not set up</span></div>
-      <div class="in-row"><span class="in-label">Home/contents insurance</span><span class="in-badge ok">Active</span></div>
-      <button onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')" style="margin-top:12px;background:var(--bl);color:white;border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;"><i class="ti ti-message-circle"></i> Ask Sarathy about insurance options</button>
-    </div>
-    <div class="sl">Setup checklist</div>
-    <div class="card" style="padding:0;overflow:hidden;">
-      <div class="ns2"><div class="sn dn"><i class="ti ti-check" style="font-size:13px;"></i></div><div><div class="st">Open a local bank account</div><div class="sd">DBS, OCBC, or UOB — done in 15 mins with your passport and student pass.</div></div></div>
-      <div class="ns2"><div class="sn dn"><i class="ti ti-check" style="font-size:13px;"></i></div><div><div class="st">Set up PayNow</div><div class="sd">Link your NRIC or phone for instant free transfers.</div></div></div>
-      <div class="ns2"><div class="sn ac">3</div><div><div class="st">Open NRE account back home</div><div class="sd">Send Singapore → India tax-free. Sarathy walks you through it.</div><button class="sc2" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle" style="font-size:13px;"></i> Ask Sarathy how</button></div></div>
-      <div class="ns2"><div class="sn td2">4</div><div><div class="st">Understand 0% capital gains</div><div class="sd">Singapore doesn't tax investment profits. Here's how to use this legally.</div><button class="sc2" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle" style="font-size:13px;"></i> Learn with Sarathy</button></div></div>
-      <div class="ns2"><div class="sn td2">5</div><div><div class="st">Optimise your remittances</div><div class="sd">Wise and Instarem save most NRIs $80–$200/month vs bank transfers.</div><button class="sc2" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle" style="font-size:13px;"></i> Compare rates</button></div></div>
-    </div>
-    <div class="sl" style="margin-top:4px;">Share Sarathy</div>
-    <div class="share-card">
-      <h3>Know someone who just arrived?</h3>
-      <p>Send them this. Sarathy helped you figure out Singapore's financial system — now pass it on to a friend figuring it out alone.</p>
-      <button class="share-btn"><i class="ti ti-share"></i> Share my Sarathy referral</button>
-    </div>
-    <div style="height:16px;"></div>
-  </div>
-  <nav class="nb">
-    <button class="ni" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
-    <button class="ni" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
-    <button class="ni" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
-    <button class="ni on" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
-    <button class="ni" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
-  </nav>
-</div>
-
-<!-- INVEST -->
-<div class="screen" id="screen-invest">
-  <div class="sb"><span class="t">9:41</span><div class="ic"><i class="ti ti-wifi"></i><i class="ti ti-battery"></i></div></div>
-  <div class="sh"><h1>Start Investing</h1><p>Simple first steps — no jargon, no overwhelm</p></div>
-  <div class="sc">
-    <div class="sl">SIP Calculator</div>
-    <div class="sip-card">
-      <h3>What does starting a SIP actually mean?</h3>
-      <p>A SIP means investing a small fixed amount every month — like a savings habit, but your money grows in the market. Most experts recommend this as the single best starting point for Gen Z.</p>
-      <div class="sip-calc">
-        <label>Monthly amount: SGD $<span id="sip-amt">100</span></label>
-        <input type="range" id="sip-slider" min="50" max="500" value="100" step="50" oninput="updateSIP()">
-        <label>Years investing: <span id="sip-yrs">10</span></label>
-        <input type="range" id="sip-yrs-slider" min="3" max="30" value="10" step="1" oninput="updateSIP()">
-        <div class="sip-result">
-          <div class="lbl">Your money grows to approximately</div>
-          <div class="big" id="sip-result">SGD $17,384</div>
-          <div class="lbl" style="margin-top:4px;">at 8% annual returns — index fund historical average</div>
-        </div>
-      </div>
-    </div>
-    <div class="sl">Where to start (Sarathy recommends)</div>
-    <div class="card" style="padding:4px 0;overflow:hidden;">
-      <div class="cmp-row">
-        <div class="cmp-ic" style="background:#EFF6FF;"><i class="ti ti-building-bank" style="color:#2563EB;"></i></div>
-        <div style="flex:1;"><div class="cmp-nm">Index Funds (Nifty 50 / S&P 500)</div><div class="cmp-tx">Low cost, diversified. Recommended by experts for Gen Z beginners. Only 7% of Gen Z owns them — most who should.</div></div>
-        <div style="text-align:right;flex-shrink:0;"><div class="cmp-pct">~12%</div><div class="cmp-lb">avg/yr</div></div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-ic" style="background:#F0FDF4;"><i class="ti ti-chart-line" style="color:#16A34A;"></i></div>
-        <div style="flex:1;"><div class="cmp-nm">Balanced Advantage Fund SIP</div><div class="cmp-tx">Auto-balances stocks and bonds. Lower stress, consistent returns. Great for emotionally reactive investors.</div></div>
-        <div style="text-align:right;flex-shrink:0;"><div class="cmp-pct">~10%</div><div class="cmp-lb">avg/yr</div></div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-ic" style="background:#FFFBEB;"><i class="ti ti-coins" style="color:#D97706;"></i></div>
-        <div style="flex:1;"><div class="cmp-nm">Sovereign Gold Bond (SGB)</div><div class="cmp-tx">Digital gold that also pays 2.5% interest. Gen Z's smarter approach to gold — not jewellery, but a real investment.</div></div>
-        <div style="text-align:right;flex-shrink:0;"><div class="cmp-pct">~8%</div><div class="cmp-lb">avg/yr</div></div>
-      </div>
-    </div>
-    <div class="sl">What Gen Z in India actually owns</div>
-    <div class="card">
-      <p style="font-size:11px;color:var(--mu);margin-bottom:10px;">InvestOnline / Motley Fool Gen Z Study 2025</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">Stocks</span><span style="font-size:12px;font-weight:600;color:var(--or);">46%</span></div><div class="bb"><div class="bf" style="width:46%"></div></div></div>
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">Cryptocurrency</span><span style="font-size:12px;font-weight:600;color:var(--or);">26%</span></div><div class="bb"><div class="bf" style="width:26%"></div></div></div>
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">Mutual Funds</span><span style="font-size:12px;font-weight:600;color:var(--or);">14%</span></div><div class="bb"><div class="bf" style="width:14%"></div></div></div>
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">ETFs</span><span style="font-size:12px;font-weight:600;color:var(--or);">12%</span></div><div class="bb"><div class="bf" style="width:12%"></div></div></div>
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;color:var(--dk);">Index Funds</span><span style="font-size:12px;font-weight:600;color:var(--or);">7%</span></div><div class="bb"><div class="bf" style="width:7%"></div></div></div>
-      </div>
-      <p style="font-size:12px;color:var(--mu);margin-top:10px;line-height:1.5;">Only 7% own index funds — yet experts say it's the best starting point. Sarathy bridges this gap.</p>
-    </div>
-    <button onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')" style="margin:0 16px 20px;background:var(--or);color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:calc(100% - 32px);display:flex;align-items:center;justify-content:center;gap:8px;"><i class="ti ti-message-circle"></i> Ask Sarathy where to start</button>
-  </div>
-  <nav class="nb">
-    <button class="ni" onclick="go('home')"><i class="ti ti-home"></i><span>Home</span></button>
-    <button class="ni" onclick="window.open('https://creator.voiceflow.com/share/6a16b775241a010e88134176/environment/main/draft','_blank')"><i class="ti ti-message-circle"></i><span>Sarathy</span></button>
-    <button class="ni" onclick="go('goals')"><i class="ti ti-target"></i><span>Goals</span></button>
-    <button class="ni" onclick="go('nri')"><i class="ti ti-map-pin"></i><span>NRI</span></button>
-    <button class="ni on" onclick="go('invest')"><i class="ti ti-trending-up"></i><span>Invest</span></button>
-  </nav>
-</div>
-
-</div>
-
+</div><!-- .phone -->
 <script>
-function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+n).classList.add('active');}
-function showPause(){document.getElementById('pause-overlay').style.display='flex';}
-function hidePause(){document.getElementById('pause-overlay').style.display='none';}
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-function updateEF(v){
-  const exp=parseInt(v);
-  const need=exp*6;
-  const months=(3240/exp).toFixed(1);
-  document.getElementById('ef-exp').textContent=exp.toLocaleString();
-  document.getElementById('ef-need').textContent=need.toLocaleString();
-  document.getElementById('ef-need2') && (document.getElementById('ef-need2').textContent=need.toLocaleString());
-  document.getElementById('ef-months').textContent=months;
+const CTX = {
+  day1: "Chào Linh — I know exactly what's happening right now. You have VND in your Vietnamese bank but no card and no SGD.\n\nThat's okay. You are not the first — and with Sarathy, you won't have to figure it out alone like the students before you did.\n\nFirst question: do you have any physical cash on you right now? VND notes, USD, anything?",
+  get_sgd: "Okay — here is your fastest path to SGD right now.\n\nIf you have any cash at all: take the MRT to Little India and go to Mustafa Centre, 145 Syed Alwi Road. Open 24 hours. Best exchange rates in Singapore. SGD $50–100 will get you through your first week.\n\nDo you have any cash notes with you?",
+  peer_exchange: "Tôi có thể kết nối bạn với Minh, Phương, hoặc Thu — I can connect you with them right now. They're Vietnamese students here who have SGD and will exchange at a fair rate. No bank, no fees, just community.\n\nShould I send them a message on your behalf?",
+  join_network: "Khi bạn ổn định rồi — when you're settled — you can join Sarathy's Vietnamese student network. Students who need SGD get matched with students going home who need VND back.\n\nIt's exactly the system you invented for yourself in your first semester. Now it's safe, verified, and instant. Muốn tham gia không?",
+  homesick: "Nhớ nhà là điều bình thường — missing home is completely normal. Especially in the first days.\n\nYou left your mum, your friends, everything familiar. That is a lot to carry. Before we talk about anything practical — how are you feeling right now, really?",
+  bank_account: "For students, DBS is the easiest to open. You need your passport, your student pass, and a letter from your university.\n\nNearest DBS branch to NUS: Clementi Mall, about 10 minutes by bus. Opening takes 30 minutes and there's no minimum balance for students.\n\nHave you got your documents with you?",
+  wise_setup: "Wise sẽ thay đổi mọi thứ cho bạn — this will change everything. Once you have a Singapore bank account, you link it to Wise and send money from Vietnam to Singapore in minutes at the real exchange rate.\n\nFee to send SGD $500 equivalent: about SGD $1.50. A bank charges $8–15 plus a bad rate. Bạn tiết kiệm được rất nhiều.\n\nWant me to walk through setup step by step?",
+  paynow: "PayNow is how everyone pays each other in Singapore — hawker food, splitting bills, rent, everything. You link your phone number to your bank account and anyone can send you money instantly for free.\n\nOpen your DBS app → PayNow → Register with phone number. Takes 2 minutes.\n\nHave you opened your bank account yet?"
+};
+
+const SYS = `You are Sarathy. You are speaking to Linh, a Vietnamese student who just arrived in Singapore for her first semester. She has VND in her Vietnamese bank account but no debit card and no SGD. She is financially stranded on Day 1 in a foreign country, far from her family and everything familiar.
+
+You know her exact story — she spent her first semester borrowing SGD from friends, doing informal VND/SGD swaps with Vietnamese students going home, and feeling completely alone figuring out money in a foreign country. She told this story herself.
+
+How you speak to Linh:
+- Warm, gentle, like a caring older sister (chị) who has been through this
+- She may feel scared, homesick, overwhelmed — acknowledge that before practicalities
+- Use Vietnamese words naturally and warmly: nhà (home), cảm ơn (thank you), mình (I/we), chào (hello), bạn (you/friend)
+- Be concrete and specific — real place names, real steps, real amounts
+- Maximum 3 sentences. One question at a time.
+- Never make her feel stupid — nobody told her any of this
+- Your deepest job is making her feel she is not alone
+
+Practical knowledge:
+- Mustafa Centre (145 Syed Alwi Rd) open 24hrs, best VND/SGD rates: ~18,850
+- Airport Changi decent if still there
+- DBS/OCBC best for students, no minimum balance, need passport + student pass
+- Wise: ~SGD $1.50 fee vs bank $8-15 for $500 SGD equivalent
+- PayNow: links phone to bank for instant transfers
+- Vietnamese students Minh (NUS), Phương (NTU), Thu (SMU) available for peer exchange`;
+
+let hist=[], busy=false;
+
+function openChat(ctx){
+  go('s-chat');hist=[];
+  document.getElementById('chat-msgs').innerHTML='';
+  const opening=CTX[ctx]||CTX.day1;
+  setTimeout(()=>{
+    addMsg(opening,'agent');
+    hist.push({role:'assistant',content:opening});
+    if(ctx==='day1'||ctx==='homesick'){
+      setTimeout(()=>{
+        const msgs=document.getElementById('chat-msgs');
+        const w=document.createElement('div');
+        w.className='msg agent';
+        const opts=ctx==='day1'
+          ?['Có, tôi có tiền mặt','No cash — just bank','I have USD','I need help now']
+          :['Tôi nhớ mẹ lắm','Scared and overwhelmed','Okay but nervous','Just tell me what to do'];
+        w.innerHTML=`<div class="m-av">S</div><div><div class="qrs">${opts.map(o=>`<button class="qr" onclick="sq('${o}',this)">${o}</button>`).join('')}</div></div>`;
+        msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;
+      },400);
+    }
+  },350);
 }
 
-function updateSIP(){
-  const amt=parseInt(document.getElementById('sip-slider').value);
-  const yrs=parseInt(document.getElementById('sip-yrs-slider').value);
-  const r=0.08/12,n=yrs*12;
-  const fv=amt*(((Math.pow(1+r,n)-1)/r)*(1+r));
-  document.getElementById('sip-amt').textContent=amt;
-  document.getElementById('sip-yrs').textContent=yrs;
-  document.getElementById('sip-result').textContent='SGD $'+Math.round(fv).toLocaleString();
+function sq(text,btn){
+  btn.closest('.qrs').querySelectorAll('.qr').forEach(b=>b.disabled=true);
+  addMsg(text,'user');hist.push({role:'user',content:text});askAI();
 }
 
-const SYS=`You are Sarathy, a warm and personal financial companion for university students and NRIs in Singapore. You are not a bank or advisor — you are the brilliant friend who understands money and is always unconditionally on the user's side.
-
-Speak: warm, direct, casual. Short sentences. No jargon without explanation. ONE question at a time. Always acknowledge feelings before money. Max 3-4 sentences unless asked something detailed.
-
-Key data you know: 93% of Gen Z save consistently but 69% lack emergency funds; 72% are underinsured; only 7% own index funds despite experts recommending them; 29% carry multiple debts; 85% face rising cost-of-living challenges.
-
-Never: judge past decisions, say I am an AI, give more than one next step at a time.
-
-Goal: make the user feel genuinely understood, then help them take ONE clear next step.`;
-
-let hist=[],busy=false;
-
-function addMsg(txt,role){
-  const msgs=document.getElementById('chat-messages');
+function addMsg(text,role){
+  const msgs=document.getElementById('chat-msgs');
   const w=document.createElement('div');w.className='msg '+role;
-  w.innerHTML=role==='ag'?`<div class="av">S</div><div><div class="bu">${txt.replace(/\n/g,'<br>')}</div></div>`:`<div class="bu">${txt}</div>`;
+  w.innerHTML=role==='agent'
+    ?`<div class="m-av">S</div><div><div class="bubble">${text.replace(/\n/g,'<br>')}</div></div>`
+    :`<div class="bubble">${text}</div>`;
   msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;
 }
-function showTyping(){const m=document.getElementById('chat-messages');const t=document.createElement('div');t.className='msg ag';t.id='typing';t.innerHTML='<div class="av">S</div><div class="ty"><div class="td"></div><div class="td"></div><div class="td"></div></div>';m.appendChild(t);m.scrollTop=m.scrollHeight;}
+
+function showTyping(){
+  const m=document.getElementById('chat-msgs');
+  const t=document.createElement('div');t.className='ty-row';t.id='typing';
+  t.innerHTML=`<div class="m-av">S</div><div class="ty-bub"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
+  m.appendChild(t);m.scrollTop=m.scrollHeight;
+}
 function hideTyping(){const t=document.getElementById('typing');if(t)t.remove();}
-async function pick(btn,txt){btn.closest('.cs').querySelectorAll('.cb').forEach(b=>b.disabled=true);addMsg(txt,'us');hist.push({role:'user',content:txt});await ask();}
-async function send(){const inp=document.getElementById('chat-input');const txt=inp.value.trim();if(!txt||busy)return;inp.value='';inp.style.height='auto';addMsg(txt,'us');hist.push({role:'user',content:txt});await ask();}
-async function ask(){
-  if(busy)return;busy=true;document.getElementById('send-btn').disabled=true;showTyping();
+
+async function send(){
+  const inp=document.getElementById('chat-inp');
+  const text=inp.value.trim();
+  if(!text||busy)return;
+  inp.value='';inp.style.height='auto';
+  addMsg(text,'user');hist.push({role:'user',content:text});await askAI();
+}
+
+async function askAI(){
+  if(busy)return;busy=true;
+  document.getElementById('send-btn').disabled=true;showTyping();
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:350,system:SYS,messages:hist})});
-    const d=await res.json();const reply=d.content?.[0]?.text||"I'm right here with you.";
-    hist.push({role:'assistant',content:reply});hideTyping();addMsg(reply,'ag');
-  }catch(e){hideTyping();addMsg("I'm here. (Quick connection hiccup — but I'm not going anywhere.)",'ag');}
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:200,system:SYS,messages:hist})
+    });
+    const d=await r.json();
+    const reply=d.content?.[0]?.text||"Mình ở đây với bạn. I'm right here.";
+    hist.push({role:'assistant',content:reply});hideTyping();addMsg(reply,'agent');
+  }catch(e){
+    hideTyping();addMsg("Mình ở đây. (Quick connection issue — but I'm not going anywhere.)",'agent');
+  }
   busy=false;document.getElementById('send-btn').disabled=false;
 }
 </script>
